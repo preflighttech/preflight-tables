@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text } from 'react-native';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/client';
 import Table from './components/Table';
 import { pageCount } from './functions/pagination';
 
