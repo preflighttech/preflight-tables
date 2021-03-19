@@ -8,6 +8,7 @@ export const Gql = (props) => {
   const {
     query,
     queryName,
+    entriesName,
     columns,
     lengthMenu,
     queryVariables,
@@ -25,8 +26,9 @@ export const Gql = (props) => {
   const [page, setPage] = useState(0);
   const [pageLength, setPageLength] = useState(initialPageLength || 10);
   const [searchTerm, setSearchTerm] = useState();
+  const [called, setCalled] = useState(false);
 
-  const [getData, { called, loading, data, error }] = useLazyQuery(query, {
+  const [getData, { loading, data, error }] = useLazyQuery(query, {
     onCompleted: data => {
       if (dataUpdated) {
         dataUpdated(data);
@@ -80,11 +82,12 @@ export const Gql = (props) => {
     setOrder(newOrder);
   }
 
-  if (!called && order) {
+  if (!called && !data && order) {
+    setCalled(true);
     updateEntries({ newVariables: queryVariables });
   }
 
-  if (data && queryVariables != variables) {
+  if (data && JSON.stringify(queryVariables) != JSON.stringify(variables)) {
     updateEntries({ newVariables: queryVariables });
   }
 
@@ -92,8 +95,13 @@ export const Gql = (props) => {
     // Save entries and count to state to avoid jumpiness when updateEntries
     // fetches new data (due to table rows disappearing).
 
-    if (data[queryName].entries != entries) {
-      setEntries(data[queryName].entries)
+    const dataIds =
+      data[queryName][entriesName || 'entries'].map(entry => entry.id);
+
+    const entryIds = entries.map(entry => entry.id);
+
+    if (JSON.stringify(dataIds) != JSON.stringify(entryIds)) {
+      setEntries(data[queryName][entriesName || 'entries'])
     }
 
     if (data[queryName].count != count) {
