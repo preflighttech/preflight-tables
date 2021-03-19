@@ -1,0 +1,10 @@
+{
+  "name": "oreflight-tables",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0"
+  },
+  "files": [
+    "src"
+  ]
+}
