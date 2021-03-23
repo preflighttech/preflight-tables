@@ -10,7 +10,7 @@ const Header = props => {
 
   const style = {
     flexDirection: 'row',
-    height: 40,
+    minHeight: 40,
     paddingHorizontal: 16,
     borderBottomWidth: 1,
     borderTopWidth: 1,
