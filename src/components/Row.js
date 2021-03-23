@@ -1,8 +1,19 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, TouchableHighlight, View } from 'react-native';
+
+const renderContent = ({ entry, options, styles }) => {
+  let { content } = options;
+
+  if (!content) {
+    content = ({value}) => <Text style={styles?.content}>{value}</Text>;
+  }
+
+  return content({ entry, value: entry[options.key] });
+};
 
 const Row = ({ entry, columns, index, dimensions, styles }) => {
   const [hover, setHover] = useState(false);
+  const [showHidden, setShowHidden] = useState(false);
 
   let style = {
     flexDirection: 'row',
@@ -37,43 +48,110 @@ const Row = ({ entry, columns, index, dimensions, styles }) => {
     ...styles?.cell,
   };
 
+  const hiddenStyle = {
+    flexDirection: 'row',
+    paddingVertical: 6,
+  };
+
+  const hiddenLabelStyle = {
+    flex: 1,
+    maxWidth: 260,
+    paddingHorizontal: 22,
+    borderBottomWidth: 1,
+    borderBottomColor: 'lightgray',
+    ...styles?.hiddenLabel,
+  };
+
+  const hiddenCellStyle = {
+    flex: 1,
+    borderBottomWidth: 1,
+    borderBottomColor: 'lightgray',
+  };
+
   let foundFirst = false;
 
+  const shownColumns = [];
+  const hiddenColumns = [];
+
+  columns.forEach(options => {
+    const { minViewportWidth } = options;
+
+    if ((dimensions?.width || 999999999) < (minViewportWidth || 0)) {
+      hiddenColumns.push(options);
+    } else {
+      shownColumns.push(options);
+    }
+  });
+
   return (
-    <View
-      style={style}
-      onMouseEnter={ () => setHover(true) }
-      onMouseLeave={ () => setHover(false) }
-    >
+    <>
+      <View
+        style={style}
+        onMouseEnter={ () => setHover(true) }
+        onMouseLeave={ () => setHover(false) }
+      >
+        {
+          shownColumns.map(options => {
+            const { key, width } = options;
+            let { cellStyle } = options;
+
+            let showHiddenButton;
+
+            if (hiddenColumns.length && !foundFirst) {
+              showHiddenButton = (
+                <TouchableHighlight onPress={() => setShowHidden(!showHidden)}>
+                  <View style={{paddingHorizontal: 6}}>
+                    <Text style={{fontWeight: 'bold'}}>
+                      {showHidden ? '⊖' : '⊕'}
+                    </Text>
+                  </View>
+                </TouchableHighlight>
+              );
+            }
+
+            cellStyle = {...defaultCellStyle, ...cellStyle};
+            if (!foundFirst) {
+              delete cellStyle.borderLeftWidth;
+
+              // TODO Build a better way to keep showHiddenButton inline.
+              cellStyle.flexDirection = 'row';
+              foundFirst = true;
+            }
+
+            if (width) {
+              cellStyle.flex = 0;
+              cellStyle.flexBasis = width;
+            }
+
+            return (
+              <View style={cellStyle} key={key}>
+                {showHiddenButton}
+                {renderContent({ entry, options, styles })}
+              </View>
+            )
+          })
+        }
+      </View>
+
       {
-        columns.map(({ key, content, minViewportWidth, width }) => {
-          if ((dimensions?.width || 999999999) < (minViewportWidth || 0)) {
-            return null;
-          }
-
-          const cellStyle = {...defaultCellStyle};
-          if (!foundFirst) {
-            delete cellStyle.borderLeftWidth;
-            foundFirst = true;
-          }
-
-          if (width) {
-            cellStyle.flex = 0;
-            cellStyle.flexBasis = width;
-          }
-
-          if (!content) {
-            content = ({value}) => <Text style={styles?.content}>{value}</Text>;
-          }
+        showHidden && hiddenColumns.map(options => {
+          const { key, label } = options;
+          let { content, cellStyle } = options;
+          cellStyle = {...hiddenCellStyle, ...cellStyle};
 
           return (
-            <View style={cellStyle} key={key}>
-              { content({ value: entry[key] }) }
+            <View key={key} style={hiddenStyle}>
+              <View style={hiddenLabelStyle}>
+                <Text style={{fontWeight: 'bold'}}>{label}</Text>
+              </View>
+              <View style={hiddenCellStyle}>
+                {renderContent({ entry, options, styles })}
+              </View>
             </View>
-          )
+          );
         })
       }
-    </View>
+    </>
   );
 };
 
