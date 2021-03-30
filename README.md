@@ -254,4 +254,109 @@ const styles = {
 
 ## Custom UI component
 
-TODO
+You can provide a custom UI component for full customization. Below is a starting point:
+
+```javascript
+import Header from '@preflighttech/preflight-tables/dist/components/Header';
+import Row from '@preflighttech/preflight-tables/dist/components/Row';
+import Pagination from '@preflighttech/preflight-tables/dist/components/Pagination';
+import LengthMenu from '@preflighttech/preflight-tables/dist/components/LengthMenu';
+import StringInput from '@preflighttech/preflight-tables/dist/components/inputs/StringInput';
+
+const columns = {
+  // column definitions
+};
+
+const component = props => {
+  const {
+    pageLength,
+    updateEntries,
+    lengthMenu,
+    searchTerm,
+    search,
+    orderedColumns,
+    dimensions,
+    movableColumns,
+    moveColumn,
+    order,
+    updateOrder,
+    styles,
+    entries,
+    page,
+    numberOfPages,
+    paginationData
+  } = props;
+
+  return (
+    <>
+      {
+        lengthMenu && lengthMenu.length > 1 &&
+          <LengthMenu
+            pageLength={pageLength}
+            updateEntries={updateEntries}
+            options={lengthMenu}
+          />
+      }
+
+      <View style={{ flexDirection: 'row' }}>
+        <Text>Search</Text>
+        <StringInput
+          value={searchTerm || ''}
+          onChange={value => search(value)}
+        />
+      </View>
+
+      <View>
+        <Header
+          columns={orderedColumns}
+          dimensions={dimensions}
+          movableColumns={movableColumns}
+          moveColumn={moveColumn}
+          order={order}
+          updateOrder={updateOrder}
+          styles={styles?.header}
+        />
+
+        {
+          entries.map((entry, index) => {
+            return (
+              <Row
+                key={entry.id}
+                entry={entry}
+                columns={orderedColumns}
+                index={index}
+                dimensions={dimensions}
+                styles={styles?.data}
+              />
+            );
+          })
+        }
+      </View>
+
+      <Pagination
+        page={page}
+        numberOfPages={numberOfPages}
+        onPageChange={ newPage => updateEntries({ newPage }) }
+        label={paginationData}
+        styles={styles?.pagination}
+      />
+    </>
+  );
+}
+  
+const MyComponent = () => {
+  const { loading, error, data } = useQuery(QUERY);
+
+  return (
+    <ScrollView>
+      <DataTable.Simple
+        data={data}
+        columns={columns}
+        pageLength={25}
+        lengthMenu={ [10, 25, 50, 'All'] }
+        component={component}
+      />
+    </ScrollView>
+  );
+};
+```
