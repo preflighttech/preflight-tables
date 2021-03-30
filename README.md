@@ -156,11 +156,34 @@ const queryVariables: { scopes: (onlyShowFilledOrders ? ['filled'] : [] }
 
 ## Backend Setup for GraphQL Data
 
-TODO
+The query type should accept at least the following arguments:
+
+```ruby
+argument :limit, Int, required: false
+argument :offset, Int, required: false
+argument :search, String, required: false
+argument :sort, String, required: false
+argument :sort_direction, String, required: false
+```
+
+and include fields like:
+
+```ruby
+field :count, Int, null: false                                               
+field :entries, [UnderlyingType], null: false 
+```
 
 ## Column Definition Options
 
-TODO
+Name | Required | Notes
+-----|----------|------
+key | Yes | Unique key to identify the column. It should generally match the field name
+label | Yes | Column Label
+content | No | JSX content function. It receives an argument with entry and value keys (value is object[key])
+sort | No | Default sort, if any. "asc", "desc"; or "prevent" to prevent sorting on column
+width | No | Set width of column
+minViewportWidth | No | If viewport width is below this amount, hide column (a plus button will display to show hidden columns)
+search | No | et to false to exclude content from search in Simple table (has no effect in Gql)
 
 ## Styling
 
