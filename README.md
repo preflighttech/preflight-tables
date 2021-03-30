@@ -7,8 +7,7 @@
 
   - Install "react-dnd": "^11.1.3" (install in components for monorepo)
 
-  - Setup (only if you want to use).
-    - In App.js:
+  - Setup (only if you want to use). In App.js:
 
     ```javascript
     import { HTML5Backend } from 'react-dnd-html5-backend'
@@ -21,18 +20,23 @@
     ```
 
 2. Add github packages auth token to .npmrc.
-
-    @preflighttech:registry=https://npm.pkg.github.com/
-    //npm.pkg.github.com/:_authToken=519261ec59f88e4fa03e87a39e70105902b1b6aa
+   
+   ```
+   @preflighttech:registry=https://npm.pkg.github.com/
+   //npm.pkg.github.com/:_authToken=519261ec59f88e4fa03e87a39e70105902b1b6aa
+   ```
 
 3. Install package.
-    yarn add @preflighttech/preflight-tables
 
-    # For monorepo, install in components package:
-    yarn workspace components add @preflighttech/preflight-tables
+   ```
+   yarn add @preflighttech/preflight-tables
 
-    # or add to package.json directly, updating version as needed:
-    "@preflighttech/preflight-tables": "^0.0.4"
+   # For monorepo, install in components package:
+   yarn workspace components add @preflighttech/preflight-tables
+
+   # or add to package.json directly, updating version as needed:
+   "@preflighttech/preflight-tables": "^0.0.4"
+   ```
 
 ## Example: Simple Data
 
@@ -187,7 +191,66 @@ search | No | et to false to exclude content from search in Simple table (has no
 
 ## Styling
 
-TODO
+DataTable.Simple and DataTable.Gql accept a style prop. Use this to customize styles:
+
+```javascript
+const styles = {
+  table: {
+    // styles for the container, particularly padding and margin
+  },
+  header: {
+    container: {
+      // styles for header row
+    },
+    label: {
+      // styles for header label
+    },
+    arrowStyle: {
+      // styles for sorting arrow.
+    }
+  },
+  data: {
+    container: {
+      // styles for data row
+    },
+    alternate: {
+      // styles for alternate row, such as backgroundColor
+    },
+    hover: {
+      // styles for hover row, such as backgroundColor
+    },
+    cell: {
+      // style of cell, such as border
+    },
+    content: {
+      // styles for data content, usch as font
+    },
+    hiddenLabelStyle: {
+      // styles for label of hidden cells
+    },
+    hiddenCellStyle: {
+      // styles for data of hidden
+    }
+  },
+  pagination: {
+    button: {
+      // styles for buttons, such as number or First/Previous/Next/Last labels
+    },
+    currentButton: {
+      // styles if button represents current page
+    },
+    currentNumberButton: {
+      // styles for the current number button
+    },
+    container: {
+      // container of pagination buttons
+    },
+    label: {
+      // styles for label text (e.g. "1-10 of 123")
+    }
+  }
+};
+```
 
 ## Custom UI component
 
