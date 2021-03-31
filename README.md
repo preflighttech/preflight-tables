@@ -2,7 +2,13 @@
 
 1. For GraphQL, ensure using @apollo/client >= 3.0.0
 
-2. Install and setup React DND for drag/drop support. This is currently required
+2. Install react-native-web for non-native apps
+   
+   ```
+   yarn add react-native-web (install in web for monorepo)
+   ```
+
+3. Install and setup React DND for drag/drop support. This is currently required
    even if you're not using drag/drop.
 
   - Install "react-dnd": "^11.1.3" (install in components for monorepo)
@@ -19,14 +25,14 @@
     </DndProvider>
     ```
 
-2. Add github packages auth token to .npmrc.
+4. Add github packages auth token to .npmrc.
    
    ```
    @preflighttech:registry=https://npm.pkg.github.com/
    //npm.pkg.github.com/:_authToken=519261ec59f88e4fa03e87a39e70105902b1b6aa
    ```
 
-3. Install package.
+5. Install package.
 
    ```
    yarn add @preflighttech/preflight-tables
@@ -187,7 +193,29 @@ content | No | JSX content function. It receives an argument with entry and valu
 sort | No | Default sort, if any. "asc", "desc"; or "prevent" to prevent sorting on column
 width | No | Set width of column
 minViewportWidth | No | If viewport width is below this amount, hide column (a plus button will display to show hidden columns)
-search | No | et to false to exclude content from search in Simple table (has no effect in Gql)
+search | No | Set to false to exclude content from search in Simple table (has no effect in Gql)
+
+Sample column definition with all options:
+
+```javascript
+{
+  key: 'name',
+  label: 'Name',
+  sort: 'asc',
+  width: 200,
+  minViewportWidth: 1000,
+  search: false,
+  content: ({ entry, value }) => {
+    const id = entry.id;
+    
+    return (
+      <Link to={`/detailed/${id}`>
+        <Text>{ value }</Text>
+       </Link>
+     );
+  }
+}
+```
 
 ## Styling
 
