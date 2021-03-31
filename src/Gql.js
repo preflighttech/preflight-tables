@@ -128,6 +128,8 @@ export const Gql = (props) => {
       movableColumns={movableColumns}
       styles={styles}
       component={component}
+      buttons={buttons}
+      isLoading={loading}
     />
   );
 };

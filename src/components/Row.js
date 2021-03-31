@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { Text, TouchableHighlight, View } from 'react-native';
+import { Text, TouchableHighlight, View, Platform } from 'react-native';
 
 const renderContent = ({ entry, options, styles }) => {
   let { content } = options;
 
   if (!content) {
-    content = ({value}) => <Text style={styles?.content}>{value}</Text>;
+    if ('web' === Platform.OS) {
+      content = ({value}) => <span style={styles?.content}>{value}</span>;
+    } else {
+      content = ({value}) => <Text style={styles?.content}>{value}</Text>;
+    }
   }
 
   return content({ entry, value: entry[options.key] });
