@@ -7,6 +7,7 @@ import Pagination from './Pagination';
 import LengthMenu from './LengthMenu';
 
 import { paginatedIndexes, pageCount } from '../functions/pagination';
+import { formattedNumber } from '../functions/util';
 
 import StringInput from './inputs/StringInput';
 
@@ -71,7 +72,9 @@ const Table = props => {
   };
 
   const [pageStart, pageEnd] = paginatedIndexes(count, page, pageLength);
-  const paginationData = `${pageStart + 1}-${pageEnd} of ${count}`;
+  const paginationData =
+    `${formattedNumber(pageStart + 1)}-${formattedNumber(pageEnd)} of ` +
+    formattedNumber(count);
   const numberOfPages = pageCount(count, pageLength);
 
   if (component) {
