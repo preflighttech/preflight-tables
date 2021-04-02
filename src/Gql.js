@@ -16,6 +16,7 @@ export const Gql = (props) => {
     movableColumns,
     styles,
     component,
+    buttons,
     pageLength: initialPageLength,
   } = props;
 

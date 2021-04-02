@@ -62,6 +62,7 @@ export const Simple = (props) => {
     movableColumns,
     styles,
     component,
+    buttons,
     pageLength: initialPageLength,
   } = props;
 
@@ -132,6 +133,7 @@ export const Simple = (props) => {
       movableColumns={movableColumns}
       styles={styles}
       component={component}
+      buttons={buttons}
     />
   );
 };

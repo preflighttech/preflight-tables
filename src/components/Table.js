@@ -25,6 +25,8 @@ const Table = props => {
     styles,
     movableColumns,
     component,
+    buttons,
+    isLoading,
   } = props;
 
   const [dimensions, setDimensions] = useState(Dimensions.get('window'));
@@ -98,6 +100,7 @@ const Table = props => {
         page={page}
         numberOfPages={numberOfPages}
         paginationData={paginationData}
+        isLoading={isLoading}
       />
     );
   }
@@ -109,13 +112,32 @@ const Table = props => {
 
   const searchStyle = {
     flexDirection: 'row',
-    marginRight: 0,
-    marginLeft: 'auto'
+    alignItems: 'baseline',
   };
+
+  const functionRowStyle = {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 5,
+  }
 
   return (
     <>
-      <View style={{flexDirection: 'row'}}>
+      <View style={functionRowStyle}>
+        <View>
+          <Text>{formattedNumber(count)} entries</Text>
+        </View>
+
+        <Pagination
+          page={page}
+          numberOfPages={numberOfPages}
+          onPageChange={ newPage => updateEntries({ newPage }) }
+          styles={styles?.pagination}
+        />
+      </View>
+
+      <View style={functionRowStyle}>
         {
           lengthMenu && lengthMenu.length > 1 &&
             <LengthMenu
@@ -124,6 +146,15 @@ const Table = props => {
               options={lengthMenu}
             />
         }
+
+        {
+          isLoading &&
+            <View style={{paddingHorizontal: 10}}>
+              <Text>Loading...</Text>
+            </View>
+        }
+
+        { buttons }
 
         <View style={searchStyle}>
           <Text>Search</Text>

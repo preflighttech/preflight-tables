@@ -5,7 +5,7 @@ import SelectInput from './inputs/SelectInput';
 
 const LengthMenu = ({pageLength, updateEntries, options}) => {
   return (
-    <View style={{ flexDirection: 'row' }}>
+    <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
       <Text>Show </Text>
       <SelectInput
         value={pageLength}
