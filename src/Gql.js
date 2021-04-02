@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { useLazyQuery } from '@apollo/client';
 import Table from './components/Table';
 import { pageCount } from './functions/pagination';
@@ -116,22 +116,30 @@ export const Gql = (props) => {
   }
 
   return (
-    <Table
-      entries={entries}
-      columns={columns}
-      order={order}
-      updateEntries={updateEntries}
-      page={page}
-      count={count}
-      lengthMenu={lengthMenu}
-      pageLength={pageLength}
-      searchTerm={searchTerm}
-      movableColumns={movableColumns}
-      styles={styles}
-      component={component}
-      buttons={buttons}
-      isLoading={loading}
-    />
+    <>
+      {
+        error &&
+          <View style={{borderWidth: 2, borderColor: 'red'}}>
+            <Text style={{fontSize: 18}}>Error: {error.message}</Text>
+          </View>
+      }
+      <Table
+        entries={entries}
+        columns={columns}
+        order={order}
+        updateEntries={updateEntries}
+        page={page}
+        count={count}
+        lengthMenu={lengthMenu}
+        pageLength={pageLength}
+        searchTerm={searchTerm}
+        movableColumns={movableColumns}
+        styles={styles}
+        component={component}
+        buttons={buttons}
+        isLoading={loading}
+      />
+    </>
   );
 };
 
