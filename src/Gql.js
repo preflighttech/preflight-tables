@@ -25,7 +25,9 @@ export const Gql = (props) => {
   const [count, setCount] = useState(0);
   const [order, setOrder] = useState();
   const [page, setPage] = useState(0);
-  const [pageLength, setPageLength] = useState(initialPageLength || 10);
+  const [pageLength, setPageLength] = useState(
+    'All' === initialPageLength ? 0 : (initialPageLength || 10)
+  );
   const [searchTerm, setSearchTerm] = useState();
   const [called, setCalled] = useState(false);
 

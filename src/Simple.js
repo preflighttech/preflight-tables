@@ -70,7 +70,9 @@ export const Simple = (props) => {
   const [entries, setEntries] = useState({ filtered: [], visible: [] });
   const [order, setOrder] = useState();
   const [page, setPage] = useState(0);
-  const [pageLength, setPageLength] = useState(initialPageLength || 10);
+  const [pageLength, setPageLength] = useState(
+    'All' === initialPageLength ? 0 : (initialPageLength || 10)
+  );
   const [searchTerm, setSearchTerm] = useState();
 
   if (!data) return <Text>Loading...</Text>;
