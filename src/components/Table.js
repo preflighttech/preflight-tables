@@ -123,6 +123,8 @@ const Table = props => {
     paddingHorizontal: 5,
   }
 
+  const showPagination = lengthMenu || pageLength ? true : undefined;
+
   return (
     <>
       <View style={functionRowStyle}>
@@ -131,7 +133,7 @@ const Table = props => {
         </View>
 
         {
-          (lengthMenu || pageLength) &&
+          showPagination &&
             <Pagination
               page={page}
               numberOfPages={numberOfPages}
@@ -199,7 +201,7 @@ const Table = props => {
       </View>
 
       {
-        (lengthMenu || pageLength) &&
+        showPagination &&
           <Pagination
             page={page}
             numberOfPages={numberOfPages}
