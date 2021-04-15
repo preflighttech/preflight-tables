@@ -53,11 +53,12 @@ export const Gql = (props) => {
        sortDirection = newOrder[0] ? newOrder[0].sort : undefined;
     }
 
+    const search = newSearchTerm !== 'undefined' ? newSearchTerm : searchTerm;
+
     getData(
       {
         variables: {
-          limit, offset, sort, sortDirection,
-          search: (newSearchTerm || searchTerm),
+          limit, offset, sort, sortDirection, search,
           ...(newVariables || variables || {})
         }
       }
