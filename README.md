@@ -157,8 +157,8 @@ You can send additional variables to the GraphQL query, for example, to enable f
 Use the queryVariables prop to DataTable.gql. For example:
 
 ```javascript
-# onlyShowFilledOrders would be updated through a button or checkbox.
-# If this variable is updated using setState, the datatable will requery.
+// onlyShowFilledOrders would be updated through a button or checkbox.
+// If this variable is updated using setState, the datatable will requery.
 const queryVariables: { scopes: (onlyShowFilledOrders ? ['filled'] : [] }
 
 <DataTable.Gql queryVariables={queryVariables} ...otherProps />
