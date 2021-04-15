@@ -12,7 +12,17 @@ const renderContent = ({ entry, options, styles }) => {
     }
   }
 
-  return content({ entry, value: entry[options.key] });
+  let rendered = content({ entry, value: entry[options.key] });
+
+  if ('string' === typeof rendered) {
+    if ('web' === Platform.OS) {
+      rendered = <span style={styles?.content}>{rendered}</span>;
+    } else {
+      rendered = <Text style={styles?.content}>{rendered}</Text>;
+    }
+  }
+
+  return rendered;
 };
 
 const Row = ({ entry, columns, index, dimensions, styles }) => {
