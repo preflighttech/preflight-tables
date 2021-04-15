@@ -113,6 +113,7 @@ const Table = props => {
   const searchStyle = {
     flexDirection: 'row',
     alignItems: 'baseline',
+    ...styles?.search?.container,
   };
 
   const functionRowStyle = {
@@ -129,12 +130,15 @@ const Table = props => {
           <Text>{formattedNumber(count)} entries</Text>
         </View>
 
-        <Pagination
-          page={page}
-          numberOfPages={numberOfPages}
-          onPageChange={ newPage => updateEntries({ newPage }) }
-          styles={styles?.pagination}
-        />
+        {
+          (lengthMenu || pageLength) &&
+            <Pagination
+              page={page}
+              numberOfPages={numberOfPages}
+              onPageChange={ newPage => updateEntries({ newPage }) }
+              styles={styles?.pagination}
+            />
+        }
       </View>
 
       <View style={functionRowStyle}>
@@ -194,13 +198,16 @@ const Table = props => {
         }
       </View>
 
-      <Pagination
-        page={page}
-        numberOfPages={numberOfPages}
-        onPageChange={ newPage => updateEntries({ newPage }) }
-        label={paginationData}
-        styles={styles?.pagination}
-      />
+      {
+        (lengthMenu || pageLength) &&
+          <Pagination
+            page={page}
+            numberOfPages={numberOfPages}
+            onPageChange={ newPage => updateEntries({ newPage }) }
+            label={paginationData}
+            styles={styles?.pagination}
+          />
+      }
     </>
   );
 };
