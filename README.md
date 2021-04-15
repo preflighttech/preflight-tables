@@ -3,7 +3,7 @@
 1. For GraphQL, ensure using @apollo/client >= 3.0.0
 
 2. Install react-native-web for non-native apps
-   
+
    ```
    yarn add react-native-web (install in web for monorepo)
    ```
@@ -26,7 +26,7 @@
     ```
 
 4. Add github packages auth token to .npmrc.
-   
+
    ```
    @preflighttech:registry=https://npm.pkg.github.com/
    //npm.pkg.github.com/:_authToken=519261ec59f88e4fa03e87a39e70105902b1b6aa
@@ -159,7 +159,7 @@ Use the queryVariables prop to DataTable.gql. For example:
 ```javascript
 // onlyShowFilledOrders would be updated through a button or checkbox.
 // If this variable is updated using setState, the datatable will requery.
-const queryVariables: { scopes: (onlyShowFilledOrders ? ['filled'] : [] }
+const queryVariables = { scopes: (onlyShowFilledOrders ? ['filled'] : [] }
 
 <DataTable.Gql queryVariables={queryVariables} ...otherProps />
 ```
@@ -179,8 +179,8 @@ argument :sort_direction, String, required: false
 and include fields like:
 
 ```ruby
-field :count, Int, null: false                                               
-field :entries, [UnderlyingType], null: false 
+field :count, Int, null: false
+field :entries, [UnderlyingType], null: false
 ```
 
 ## Column Definition Options
@@ -207,7 +207,7 @@ Sample column definition with all options:
   search: false,
   content: ({ entry, value }) => {
     const id = entry.id;
-    
+
     return (
       <Link to={`/detailed/${id}`>
         <Text>{ value }</Text>
@@ -371,7 +371,7 @@ const component = props => {
     </>
   );
 }
-  
+
 const MyComponent = () => {
   const { loading, error, data } = useQuery(QUERY);
 
