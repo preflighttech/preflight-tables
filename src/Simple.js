@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Text } from 'react-native';
 import Table from './components/Table';
 import { paginatedIndexes, pageCount } from './functions/pagination';
+import { valueFor } from './functions/util';
 
 import LengthMenu from './components/LengthMenu';
 import Row from './components/Row';
@@ -14,7 +15,7 @@ const filteredBySearch = (entries, columns, term) => {
   return entries.filter(entry => {
     return columns.filter(({ key, search }) => {
       if (search !== false) {
-        const value = entry[key];
+        const value = valueFor(entry, key, columns);
 
         if (value && value.toString().toLowerCase().includes(term)) {
           return true;
@@ -39,12 +40,12 @@ const sorted = ({ entries, order, columns }) => {
     let entryResult = 0;
 
     order.some(({ key, sort }) => {
-      const entryData = entry[key];
-      const otherData = other[key];
-      if (entryData === otherData) {
+      const entryValue = valueFor(entry, key, columns);
+      const otherValue = valueFor(other, key, columns);
+      if (entryValue === otherValue) {
         return false;
       } else {
-        const result = entryData < otherData ? -1 : 1;
+        const result = entryValue < otherValue ? -1 : 1;
         entryResult = 'asc' === sort ? result : (result * -1);
         return true;
       }

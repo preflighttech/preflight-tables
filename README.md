@@ -194,6 +194,7 @@ sort | No | Default sort, if any. "asc", "desc"; or "prevent" to prevent sorting
 width | No | Set width of column
 minViewportWidth | No | If viewport width is below this amount, hide column (a plus button will display to show hidden columns)
 search | No | Set to false to exclude content from search in Simple table (has no effect in Gql)
+value | No | Function to set value to something different that object[key], particularly for searching and sorting in Simple tables.
 
 Sample column definition with all options:
 
@@ -205,6 +206,7 @@ Sample column definition with all options:
   width: 200,
   minViewportWidth: 1000,
   search: false,
+  value: ({ entry, value }) => `${value}-${entry.name}`,
   content: ({ entry, value }) => {
     const id = entry.id;
 

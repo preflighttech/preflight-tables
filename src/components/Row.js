@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Text, TouchableHighlight, View, Platform } from 'react-native';
 
 const renderContent = ({ entry, options, styles }) => {
-  let { content } = options;
+  let { content, value: getValue } = options;
 
   if (!content) {
     if ('web' === Platform.OS) {
@@ -12,7 +12,12 @@ const renderContent = ({ entry, options, styles }) => {
     }
   }
 
-  let rendered = content({ entry, value: entry[options.key] });
+  let valueToRender = entry[options.key];
+  if (getValue) {
+    valueToRender = getValue({ entry, value: valueToRender });
+  }
+
+  let rendered = content({ entry, value: valueToRender });
 
   if ('string' === typeof rendered) {
     if ('web' === Platform.OS) {
