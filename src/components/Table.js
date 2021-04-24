@@ -30,7 +30,11 @@ const Table = props => {
   } = props;
 
   const [dimensions, setDimensions] = useState(Dimensions.get('window'));
-  const [orderedColumns, setOrderedColumns] = useState(columns);
+  const [columnOrder, setColumnOrder] =
+    useState(columns.map(column => column.key));
+
+  const orderedColumns =
+    columnOrder.map(key => columns.find(column => column.key === key));
 
   const updateDimensions = () => {
     setDimensions(Dimensions.get('window'));
@@ -62,11 +66,11 @@ const Table = props => {
   };
 
   const moveColumn = (dragIndex, dropIndex) => {
-    const element = orderedColumns[dragIndex];
-    orderedColumns.splice(dragIndex, 1);
-    orderedColumns.splice(dropIndex, 0, element);
+    const element = columnOrder[dragIndex];
+    columnOrder.splice(dragIndex, 1);
+    columnOrder.splice(dropIndex, 0, element);
 
-    setOrderedColumns([...orderedColumns]);
+    setColumnOrder([...columnOrder]);
   };
 
   const search = newSearchTerm => {
