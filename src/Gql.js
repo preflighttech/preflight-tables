@@ -13,6 +13,7 @@ export const Gql = (props) => {
     lengthMenu,
     queryVariables,
     dataUpdated,
+    setSettings,
     movableColumns,
     styles,
     component,
@@ -71,6 +72,10 @@ export const Gql = (props) => {
     if (typeof newPage !== 'undefined') { setPage(newPage); }
     if (typeof newPageLength !== 'undefined') { setPageLength(newPageLength); }
     if (typeof newSearchTerm !== 'undefined') { setSearchTerm(newSearchTerm); }
+
+    if (setSettings) {
+      setSettings({search, order: (newOrder || order)});
+    }
   };
 
   if (!order) {
@@ -84,6 +89,7 @@ export const Gql = (props) => {
     });
 
     setOrder(newOrder);
+    if (setSettings) { setSettings({order: newOrder}) }
   }
 
   if (!called && !data && order) {
