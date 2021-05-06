@@ -45,7 +45,9 @@ export const Gql = (props) => {
       newOrder, newPage, newPageLength, newSearchTerm, newVariables
     } = options;
 
-    const limit = newPageLength === undefined ? pageLength : newPageLength;
+    let limit = newPageLength === undefined ? pageLength : newPageLength;
+    if (0 === limit) { limit = null; }
+
     const offset = (newPage === undefined ? page : newPage) * limit;
 
     let sort = order[0] ? order[0].key : undefined;
