@@ -13,6 +13,7 @@ export const Gql = (props) => {
     lengthMenu,
     queryVariables,
     dataUpdated,
+    setRefetch,
     setSettings,
     movableColumns,
     styles,
@@ -33,9 +34,9 @@ export const Gql = (props) => {
   const [called, setCalled] = useState(false);
 
   const [getData, { loading, data, error }] = useLazyQuery(query, {
-    onCompleted: data => {
+    onCompleted: newData => {
       if (dataUpdated) {
-        dataUpdated(data);
+        dataUpdated(newData);
       }
     }
   });
@@ -97,6 +98,10 @@ export const Gql = (props) => {
   if (!called && !data && order) {
     setCalled(true);
     updateEntries({ newVariables: queryVariables });
+
+    if (setRefetch) {
+      setRefetch(() => () => updateEntries({}));
+    }
   }
 
   if (data && JSON.stringify(queryVariables) != JSON.stringify(variables)) {
