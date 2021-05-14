@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Dimensions, View, Text } from 'react-native';
+import { Dimensions, View, Text, Platform } from 'react-native';
 
 import Header from './Header';
 import Row from './Row';
@@ -27,6 +27,7 @@ const Table = props => {
     component,
     buttons,
     isLoading,
+    htmlTable,
   } = props;
 
   const [dimensions, setDimensions] = useState(Dimensions.get('window'));
@@ -110,7 +111,7 @@ const Table = props => {
   }
 
   const tableStyle = {
-    paddingTop: 10,
+    marginTop: 8,
     ...styles?.table,
   };
 
@@ -128,6 +129,16 @@ const Table = props => {
   }
 
   const showPagination = lengthMenu || pageLength ? true : undefined;
+
+  const htmlTableAndWeb = (htmlTable && 'web' === Platform.OS)
+  const TableComponent = htmlTableAndWeb ?
+    ({children, ...props}) => <table {...props}>{children}</table> : View;
+
+  if (htmlTableAndWeb) {
+    if (!tableStyle.width) {
+      tableStyle.width = '100%';
+    }
+  }
 
   return (
     <>
@@ -177,7 +188,7 @@ const Table = props => {
         </View>
       </View>
 
-      <View style={tableStyle}>
+      <TableComponent style={tableStyle}>
         <Header
           columns={orderedColumns}
           dimensions={dimensions}
@@ -186,6 +197,7 @@ const Table = props => {
           order={order}
           updateOrder={updateOrder}
           styles={styles?.header}
+          htmlTable={htmlTableAndWeb}
         />
 
         {
@@ -198,11 +210,12 @@ const Table = props => {
                 index={index}
                 dimensions={dimensions}
                 styles={styles?.data}
+                htmlTable={htmlTableAndWeb}
               />
             );
           })
         }
-      </View>
+      </TableComponent>
 
       {
         showPagination &&

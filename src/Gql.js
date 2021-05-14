@@ -19,6 +19,7 @@ export const Gql = (props) => {
     styles,
     component,
     buttons,
+    htmlTable,
     pageLength: initialPageLength,
   } = props;
 
@@ -153,6 +154,7 @@ export const Gql = (props) => {
         styles={styles}
         component={component}
         buttons={buttons}
+        htmlTable={htmlTable}
         isLoading={loading}
       />
     </>

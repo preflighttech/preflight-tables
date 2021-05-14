@@ -57,18 +57,31 @@ export const containerStyle = (styles, width) => {
 };
 
 const Title = props => {
-  const { styles, updateOrder, width, columnKey: key } = props;
+  const { styles, updateOrder, width, htmlTable, columnKey: key } = props;
 
   const style = containerStyle(styles, width);
 
-  return (
-    <TouchableWithoutFeedback onPress={() => updateOrder(key)}>
-      <View style={style}>
-        <TitleLabel {...props} />
-        <TitleArrow {...props} />
-      </View>
-    </TouchableWithoutFeedback>
-  );
+  if (htmlTable) {
+    return (
+      <th>
+        <TouchableWithoutFeedback onPress={() => updateOrder(key)}>
+          <View style={style}>
+            <TitleLabel {...props} />
+            <TitleArrow {...props} />
+          </View>
+        </TouchableWithoutFeedback>
+      </th>
+    );
+  } else {
+    return (
+      <TouchableWithoutFeedback onPress={() => updateOrder(key)}>
+        <View style={style}>
+          <TitleLabel {...props} />
+          <TitleArrow {...props} />
+        </View>
+      </TouchableWithoutFeedback>
+    );
+  }
 };
 
 export default Title;

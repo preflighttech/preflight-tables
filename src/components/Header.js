@@ -5,7 +5,8 @@ import Title from './Title';
 
 const Header = props => {
   const {
-    columns, dimensions, movableColumns, moveColumn, order, updateOrder, styles
+    columns, dimensions, movableColumns, moveColumn, order, updateOrder, styles,
+    htmlTable
   } = props;
 
   const style = {
@@ -13,41 +14,54 @@ const Header = props => {
     minHeight: 40,
     paddingHorizontal: 16,
     borderBottomWidth: 1,
+    borderBottomStyle: 'solid',
     borderTopWidth: 1,
     borderTopColor: 'lightgray',
+    borderTopStyle: 'solid',
     ...styles?.container,
   };
 
   const TitleComponent = movableColumns ? DraggableTitle : Title;
 
-  return (
-    <View style={style}>
-      {
-        columns.map((options, index) => {
-          const { label, key, minViewportWidth, sort, width } = options;
+  const children = columns.map((options, index) => {
+    const { label, key, minViewportWidth, sort, width } = options;
 
-          if ((dimensions?.width || 999999999) < (minViewportWidth || 0)) {
-            return null;
-          }
+    if ((dimensions?.width || 999999999) < (minViewportWidth || 0)) {
+      return null;
+    }
 
-          return (
-            <TitleComponent
-              label={label}
-              key={key}
-              columnKey={key}
-              order={order}
-              canSort={'prevent' !== sort}
-              index={index}
-              moveColumn={moveColumn}
-              updateOrder={updateOrder}
-              styles={styles}
-              width={width}
-            />
-          );
-        })
-      }
-    </View>
-  );
+    return (
+      <TitleComponent
+        label={label}
+        key={key}
+        columnKey={key}
+        order={order}
+        canSort={'prevent' !== sort}
+        index={index}
+        moveColumn={moveColumn}
+        updateOrder={updateOrder}
+        styles={styles}
+        width={width}
+        htmlTable={htmlTable}
+      />
+    );
+  });
+
+  if (htmlTable) {
+    return (
+      <thead>
+        <tr style={style}>
+          { children }
+        </tr>
+      </thead>
+    );
+  } else {
+    return (
+      <View style={style}>
+        { children }
+      </View>
+    );
+  }
 };
 
 export default Header;

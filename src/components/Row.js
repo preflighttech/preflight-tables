@@ -30,7 +30,7 @@ const renderContent = ({ entry, options, styles }) => {
   return rendered;
 };
 
-const Row = ({ entry, columns, index, dimensions, styles }) => {
+const Row = ({ entry, columns, index, dimensions, styles, htmlTable }) => {
   const [hover, setHover] = useState(false);
   const [showHidden, setShowHidden] = useState(false);
 
@@ -38,6 +38,7 @@ const Row = ({ entry, columns, index, dimensions, styles }) => {
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderBottomColor: 'lightgray',
+    borderBottomStyle: 'solid',
     paddingHorizontal: 16,
     ...styles?.container,
   }
@@ -62,6 +63,7 @@ const Row = ({ entry, columns, index, dimensions, styles }) => {
     flex: 1,
     borderLeftWidth: 1,
     borderLeftColor: 'lightgray',
+    borderLeftStyle: 'solid',
     paddingHorizontal: 8,
     paddingVertical: 8,
     ...styles?.cell,
@@ -102,9 +104,12 @@ const Row = ({ entry, columns, index, dimensions, styles }) => {
     }
   });
 
+  const RowComponent = htmlTable ?
+    ({children, ...props}) => <tr {...props}>{children}</tr> : View;
+
   return (
     <>
-      <View
+      <RowComponent
         style={style}
         onMouseEnter={ () => setHover(true) }
         onMouseLeave={ () => setHover(false) }
@@ -142,15 +147,29 @@ const Row = ({ entry, columns, index, dimensions, styles }) => {
               cellStyle.flexBasis = width;
             }
 
-            return (
-              <View style={cellStyle} key={key}>
-                {showHiddenButton}
-                {renderContent({ entry, options, styles })}
-              </View>
-            )
+            if (htmlTable) {
+              cellStyle.paddingLeft = cellStyle.paddingHorizontal;
+              cellStyle.paddingRight = cellStyle.paddingHorizontal;
+              cellStyle.paddingTop = cellStyle.paddingVertical;
+              cellStyle.paddingBottom = cellStyle.paddingVertical;
+
+              return (
+                <td key={key} style={cellStyle}>
+                  {showHiddenButton}
+                  {renderContent({ entry, options, styles })}
+                </td>
+              );
+            } else {
+              return (
+                <View style={cellStyle} key={key}>
+                  {showHiddenButton}
+                  {renderContent({ entry, options, styles })}
+                </View>
+              );
+            }
           })
         }
-      </View>
+      </RowComponent>
 
       {
         showHidden && hiddenColumns.map(options => {
