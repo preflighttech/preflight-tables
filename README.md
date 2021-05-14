@@ -88,6 +88,21 @@ const Tacos = () => {
 export default Tacos;
 ```
 
+## Simple Table props
+
+Name | Required | Notes
+-----|----------|------
+data | Yes | Array of objects with data.
+columns | Yes | Array of objects with column definitions.
+lengthMenu | No | Array of integers of page length options. 'All' can also be an
+option.
+movableColumns | No | Set to true to support movable columns.
+styles | No | See "Styling" section.
+component | No | See "Custom UI Component" section.
+buttons | No | Components to put above table, such as filtering buttons.
+htmlTable | No | Set to true to use html table elements when Platform is web.
+pageLength | No | Initial page length.
+
 ## Example: Gql Data
 
 Gql gets data from a GraphQL endpoint, using apollo. Pagination, ordering and
@@ -163,6 +178,21 @@ const queryVariables = { scopes: (onlyShowFilledOrders ? ['filled'] : [] }
 
 <DataTable.Gql queryVariables={queryVariables} ...otherProps />
 ```
+
+## Gql Table props
+
+All table props available to Simple tables are also available to Gql tables,
+except **data**. This list contains additional props.
+
+Name | Required | Notes
+-----|----------|------
+query | Yes | GraphQL query.
+queryName | Yes | String with name of query, used as key on returned data object.
+entriesName | No | Key for entries in returned data, if other than "entries".
+queryVariables | No | See "GraphQL queryVariables" section.
+dataUpdated | No | Function to call when data is updated, receives data as argument.
+setRefetch | No | Function to call to set refetch state variable that can be used to update data after a user action.
+setSettings | No | Function to call to set settings data, such as sort and search when those change.
 
 ## Backend Setup for GraphQL Data
 
