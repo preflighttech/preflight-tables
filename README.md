@@ -94,8 +94,7 @@ Name | Required | Notes
 -----|----------|------
 data | Yes | Array of objects with data.
 columns | Yes | Array of objects with column definitions.
-lengthMenu | No | Array of integers of page length options. 'All' can also be an
-option.
+lengthMenu | No | Array of integers of page length options. 'All' can also be an option.
 movableColumns | No | Set to true to support movable columns.
 styles | No | See "Styling" section.
 component | No | See "Custom UI Component" section.
