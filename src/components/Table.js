@@ -28,6 +28,7 @@ const Table = props => {
     buttons,
     isLoading,
     htmlTable,
+    disableSearch,
   } = props;
 
   const [dimensions, setDimensions] = useState(Dimensions.get('window'));
@@ -178,13 +179,20 @@ const Table = props => {
         { buttons }
 
         <View style={searchStyle}>
-          <Text>Search</Text>
-          <View style={{paddingHorizontal: 6}}>
-            <StringInput
-              value={searchTerm || ''}
-              onChange={value => search(value)}
-            />
-          </View>
+          {
+            disableSearch ?
+              null
+            :
+              <>
+                <Text>Search</Text>
+                <View style={{paddingHorizontal: 6}}>
+                  <StringInput
+                    value={searchTerm || ''}
+                    onChange={value => search(value)}
+                  />
+                </View>
+              </>
+          }
         </View>
       </View>
 

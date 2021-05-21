@@ -65,6 +65,7 @@ export const Simple = (props) => {
     component,
     buttons,
     htmlTable,
+    disableSearch,
     pageLength: initialPageLength,
   } = props;
 
@@ -138,6 +139,7 @@ export const Simple = (props) => {
       styles={styles}
       component={component}
       htmlTable={htmlTable}
+      disableSearch={disableSearch}
       buttons={buttons}
     />
   );

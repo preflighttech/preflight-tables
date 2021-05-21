@@ -20,6 +20,7 @@ export const Gql = (props) => {
     component,
     buttons,
     htmlTable,
+    disableSearch,
     pageLength: initialPageLength,
   } = props;
 
@@ -155,6 +156,7 @@ export const Gql = (props) => {
         component={component}
         buttons={buttons}
         htmlTable={htmlTable}
+        disableSearch={disableSearch}
         isLoading={loading}
       />
     </>

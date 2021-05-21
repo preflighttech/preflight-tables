@@ -100,6 +100,7 @@ styles | No | See "Styling" section.
 component | No | See "Custom UI Component" section.
 buttons | No | Components to put above table, such as filtering buttons.
 htmlTable | No | Set to true to use html table elements when Platform is web.
+disableSearch | No | Set to true to remove search box.
 pageLength | No | Initial page length.
 
 ## Example: Gql Data
