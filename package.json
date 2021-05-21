@@ -1,7 +1,7 @@
 {
   "name": "@preflighttech/preflight-tables",
   "description": "DataTables for react",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "main": "dist/index.js",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
