@@ -133,7 +133,11 @@ const Table = props => {
 
   const htmlTableAndWeb = (htmlTable && 'web' === Platform.OS)
   const TableComponent = htmlTableAndWeb ?
-    ({children, ...props}) => <table {...props}>{children}</table> : View;
+    ({children, ...props}) => <table {...props}>{children}</table> :
+    View;
+  const TableBodyComponent = htmlTableAndWeb ?
+    ({children, ...props}) => <tbody {...props}>{children}</tbody> :
+    React.Fragment;
 
   if (htmlTableAndWeb) {
     if (!tableStyle.width) {
@@ -208,21 +212,24 @@ const Table = props => {
           htmlTable={htmlTableAndWeb}
         />
 
-        {
-          entries.map((entry, index) => {
-            return (
-              <Row
-                key={entry.id}
-                entry={entry}
-                columns={orderedColumns}
-                index={index}
-                dimensions={dimensions}
-                styles={styles?.data}
-                htmlTable={htmlTableAndWeb}
-              />
-            );
-          })
-        }
+        <TableBodyComponent>
+          {
+            entries.map((entry, index) => {
+              return (
+                <Row
+                  key={entry.id}
+                  entry={entry}
+                  columns={orderedColumns}
+                  index={index}
+                  dimensions={dimensions}
+                  styles={styles?.data}
+                  htmlTable={htmlTableAndWeb}
+                />
+              );
+            })
+          }
+        </TableBodyComponent>
+
       </TableComponent>
 
       {
