@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, TouchableHighlight, View, Platform } from 'react-native';
+import { Text, TouchableOpacity, View, Platform } from 'react-native';
 
 const renderContent = ({ entry, options, styles }) => {
   let { content, value: getValue } = options;
@@ -125,13 +125,13 @@ const Row = ({ entry, columns, index, dimensions, styles, htmlTable }) => {
 
             if (hiddenColumns.length && !foundFirst) {
               showHiddenButton = (
-                <TouchableHighlight onPress={() => setShowHidden(!showHidden)}>
+                <TouchableOpacity onPress={() => setShowHidden(!showHidden)}>
                   <View style={{paddingHorizontal: 6}}>
                     <Text style={{fontWeight: 'bold'}}>
                       {showHidden ? '⊖' : '⊕'}
                     </Text>
                   </View>
-                </TouchableHighlight>
+                </TouchableOpacity>
               );
             }
 
