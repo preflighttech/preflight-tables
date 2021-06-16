@@ -31,9 +31,11 @@ const Table = props => {
     disableSearch,
   } = props;
 
+  const currentColumnKeys = columns.map(column => column.key);
+
   const [dimensions, setDimensions] = useState(Dimensions.get('window'));
-  const [columnOrder, setColumnOrder] =
-    useState(columns.map(column => column.key));
+  const [columnKeys, setColumnKeys] = useState(currentColumnKeys);
+  const [columnOrder, setColumnOrder] = useState(currentColumnKeys);
 
   const orderedColumns =
     columnOrder.map(key => columns.find(column => column.key === key));
@@ -43,6 +45,13 @@ const Table = props => {
   };
 
   useEffect(() => (window.onresize = updateDimensions), []);
+
+  // If columns have been added/removed, need to reset order, or else the
+  // columns won't update.
+  if (JSON.stringify(currentColumnKeys) !== JSON.stringify(columnKeys)) {
+    setColumnKeys(currentColumnKeys);
+    setColumnOrder(currentColumnKeys);
+  }
 
   const updateOrder = key => {
     if ('prevent' === columns.find(column => column.key === key).sort) {
