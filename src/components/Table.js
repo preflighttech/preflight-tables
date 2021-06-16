@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Dimensions, View, Text, Platform } from 'react-native';
+import {
+  Dimensions, View, Text, TouchableOpacity, Platform
+} from 'react-native';
 
 import Header from './Header';
 import Row from './Row';
@@ -29,6 +31,7 @@ const Table = props => {
     isLoading,
     htmlTable,
     disableSearch,
+    refetch,
   } = props;
 
   const currentColumnKeys = columns.map(column => column.key);
@@ -154,11 +157,21 @@ const Table = props => {
     }
   }
 
+  const refetchComponent = (typeof refetch === 'function') ?
+    (
+      <TouchableOpacity onPress={() => refetch()}>
+        <View style={{paddingHorizontal: 6}}>
+          <Text style={{fontWeight: 'bold'}}>↻</Text>
+        </View>
+      </TouchableOpacity>
+    ) : refetch;
+
   return (
     <>
       <View style={functionRowStyle}>
-        <View>
+        <View style={{flexDirection: 'row'}}>
           <Text>{formattedNumber(count)} entries</Text>
+          {refetchComponent}
         </View>
 
         {

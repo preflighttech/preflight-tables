@@ -66,6 +66,7 @@ export const Simple = (props) => {
     buttons,
     htmlTable,
     disableSearch,
+    refetch,
     pageLength: initialPageLength,
   } = props;
 
@@ -142,6 +143,7 @@ export const Simple = (props) => {
       htmlTable={htmlTable}
       disableSearch={disableSearch}
       buttons={buttons}
+      refetch={refetch}
     />
   );
 };

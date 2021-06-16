@@ -21,6 +21,7 @@ export const Gql = (props) => {
     buttons,
     htmlTable,
     disableSearch,
+    refetch,
     pageLength: initialPageLength,
   } = props;
 
@@ -106,21 +107,17 @@ export const Gql = (props) => {
     }
   }
 
-  if (data && JSON.stringify(queryVariables) != JSON.stringify(variables)) {
+  if (data && JSON.stringify(queryVariables) !== JSON.stringify(variables)) {
     updateEntries({ newVariables: queryVariables });
   }
 
   if (data && data[queryName]) {
     // Save entries and count to state to avoid jumpiness when updateEntries
     // fetches new data (due to table rows disappearing).
+    const dataEntries = data[queryName][entriesName || 'entries'];
 
-    const dataIds =
-      data[queryName][entriesName || 'entries'].map(entry => entry.id);
-
-    const entryIds = entries.map(entry => entry.id);
-
-    if (JSON.stringify(dataIds) != JSON.stringify(entryIds)) {
-      setEntries(data[queryName][entriesName || 'entries'])
+    if (JSON.stringify(dataEntries) !== JSON.stringify(entries)) {
+      setEntries(dataEntries);
     }
 
     if (data[queryName].count != count) {
@@ -158,6 +155,10 @@ export const Gql = (props) => {
         htmlTable={htmlTable}
         disableSearch={disableSearch}
         isLoading={loading}
+        refetch={
+          false === refetch ? false :
+          () => { setEntries([]); updateEntries({}); }
+        }
       />
     </>
   );
