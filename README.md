@@ -225,6 +225,7 @@ width | No | Set width of column
 minViewportWidth | No | If viewport width is below this amount, hide column (a plus button will display to show hidden columns)
 search | No | Set to false to exclude content from search in Simple table (has no effect in Gql)
 value | No | Function to set value to something different that object[key], particularly for searching and sorting in Simple tables.
+hidden | No | Set to true to not display column.
 
 Sample column definition with all options:
 

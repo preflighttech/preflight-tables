@@ -23,7 +23,10 @@ const Header = props => {
 
   const TitleComponent = movableColumns ? DraggableTitle : Title;
 
-  const children = columns.map((options, index) => {
+  const children = columns
+    .filter((options) => !options.hidden)
+    .map((options, index) => {
+
     const { label, key, minViewportWidth, sort, width } = options;
 
     if ((dimensions?.width || 999999999) < (minViewportWidth || 0)) {

@@ -97,7 +97,9 @@ const Row = ({ entry, columns, index, dimensions, styles, htmlTable }) => {
   columns.forEach(options => {
     const { minViewportWidth } = options;
 
-    if ((dimensions?.width || 999999999) < (minViewportWidth || 0)) {
+    if (options.hidden) {
+      // Ignore
+    } else if ((dimensions?.width || 999999999) < (minViewportWidth || 0)) {
       hiddenColumns.push(options);
     } else {
       shownColumns.push(options);
