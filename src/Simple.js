@@ -83,7 +83,8 @@ export const Simple = (props) => {
   const updateEntries = options => {
     let { newOrder, newPage, newPageLength, newSearchTerm } = options;
 
-    const filtered = filteredBySearch(data, columns, newSearchTerm || searchTerm);
+    const search = newSearchTerm !== 'undefined' ? newSearchTerm : searchTerm;
+    const filtered = filteredBySearch(data, columns, search);
 
     const maxPage =
       pageCount(filtered.length, (newPageLength || pageLength)) - 1;
