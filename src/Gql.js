@@ -22,6 +22,8 @@ export const Gql = (props) => {
     htmlTable,
     disableSearch,
     refetch,
+    initialLoadComponent,
+    isLoadingComponent,
     pageLength: initialPageLength,
   } = props;
 
@@ -130,6 +132,14 @@ export const Gql = (props) => {
     }
   }
 
+  if (!data && !count) {
+    return(
+      <View>
+        { initialLoadComponent || <Text>Loading...</Text> }
+      </View>
+    )
+  }
+
   return (
     <>
       {
@@ -155,6 +165,7 @@ export const Gql = (props) => {
         htmlTable={htmlTable}
         disableSearch={disableSearch}
         isLoading={loading}
+        isLoadingComponent={isLoadingComponent}
         refetch={
           false === refetch ? false :
           () => { setEntries([]); updateEntries({}); }

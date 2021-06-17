@@ -194,6 +194,8 @@ queryVariables | No | See "GraphQL queryVariables" section.
 dataUpdated | No | Function to call when data is updated, receives data as argument.
 setRefetch | No | Function to call to set refetch state variable that can be used to update data after a user action.
 setSettings | No | Function to call to set settings data, such as sort and search when those change.
+initialLoadingComponent | No | Component to display during intiial data load.
+isLoadingComponent | No | Component to display next to buttons when data updating.
 
 ## Backend Setup for GraphQL Data
 

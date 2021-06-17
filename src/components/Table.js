@@ -32,6 +32,7 @@ const Table = props => {
     htmlTable,
     disableSearch,
     refetch,
+    isLoadingComponent,
   } = props;
 
   const currentColumnKeys = columns.map(column => column.key);
@@ -196,10 +197,15 @@ const Table = props => {
         }
 
         {
-          isLoading &&
-            <View style={{paddingHorizontal: 10}}>
-              <Text>Loading...</Text>
-            </View>
+          isLoading && (
+            isLoadingComponent || (
+              <View style={{paddingHorizontal: 10}}>
+                <Text style={{fontWeight: 'bold', fontSize: 16}}>
+                  Updating Data...
+                </Text>
+              </View>
+            )
+          )
         }
 
         { buttons }
