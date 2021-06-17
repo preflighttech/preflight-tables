@@ -5,6 +5,8 @@ export const formattedNumber = value => {
 
 export const valueFor = (entry, key, columns) => {
   const column = columns.find(column => column.key === key);
+  if (!column) { return 0 }; // column has been removed.
+
   const value = entry[key];
 
   if (column.value) {
