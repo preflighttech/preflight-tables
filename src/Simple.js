@@ -42,10 +42,18 @@ const sorted = ({ entries, order, columns }) => {
     order.some(({ key, sort }) => {
       const entryValue = valueFor(entry, key, columns);
       const otherValue = valueFor(other, key, columns);
+
       if (entryValue === otherValue) {
         return false;
       } else {
-        const result = entryValue < otherValue ? -1 : 1;
+        let result = entryValue < otherValue ? -1 : 1;
+
+        if (typeof entryValue === 'undefined' || entryValue === null) {
+          result = -1;
+        } else if (typeof otherValue === 'undefined' || otherValue === null) {
+          result = 1;
+        }
+
         entryResult = 'asc' === sort ? result : (result * -1);
         return true;
       }
