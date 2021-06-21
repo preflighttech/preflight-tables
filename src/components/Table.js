@@ -39,7 +39,7 @@ const Table = props => {
 
   const [dimensions, setDimensions] = useState(Dimensions.get('window'));
   const [columnKeys, setColumnKeys] = useState(currentColumnKeys);
-  const [columnOrder, setColumnOrder] = useState(currentColumnKeys);
+  const [columnOrder, setColumnOrder] = useState([...currentColumnKeys]);
 
   const orderedColumns =
     columnOrder.map(key => columns.find(column => column.key === key));
@@ -54,7 +54,7 @@ const Table = props => {
   // columns won't update.
   if (JSON.stringify(currentColumnKeys) !== JSON.stringify(columnKeys)) {
     setColumnKeys(currentColumnKeys);
-    setColumnOrder(currentColumnKeys);
+    setColumnOrder([...currentColumnKeys]);
   }
 
   const updateOrder = key => {
