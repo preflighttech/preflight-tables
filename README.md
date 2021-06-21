@@ -101,6 +101,7 @@ component | No | See "Custom UI Component" section.
 buttons | No | Components to put above table, such as filtering buttons.
 htmlTable | No | Set to true to use html table elements when Platform is web.
 disableSearch | No | Set to true to remove search box.
+multiSort | No | Set to true to enable multiple column sorting.
 pageLength | No | Initial page length.
 refetch | No | A method to call to refetch data or a custom component to receive and handle refetch requests. Gql tables automatically add this--set to false to disable.
 

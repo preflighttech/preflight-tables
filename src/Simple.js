@@ -66,6 +66,7 @@ export const Simple = (props) => {
     buttons,
     htmlTable,
     disableSearch,
+    multiSort,
     refetch,
     pageLength: initialPageLength,
   } = props;
@@ -83,6 +84,10 @@ export const Simple = (props) => {
 
   const updateEntries = options => {
     let { newOrder, newPage, newPageLength, newSearchTerm } = options;
+
+    if (!multiSort && typeof newOrder !== 'undefined') {
+      newOrder = newOrder.slice(0, 1);
+    }
 
     const search = newSearchTerm !== 'undefined' ? newSearchTerm : searchTerm;
     const filtered = filteredBySearch(data, columns, search);
