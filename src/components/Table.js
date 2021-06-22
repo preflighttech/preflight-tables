@@ -13,6 +13,14 @@ import { formattedNumber } from '../functions/util';
 
 import StringInput from './inputs/StringInput';
 
+const HtmlTableComponent = ({children, ...props}) => (
+  <table {...props}>{children}</table>
+);
+
+const HtmlTbodyComponent = ({children, ...props}) => (
+  <tbody {...props}>{children}</tbody>
+);
+
 const Table = props => {
   const {
     entries,
@@ -145,12 +153,9 @@ const Table = props => {
   const showPagination = lengthMenu || pageLength ? true : undefined;
 
   const htmlTableAndWeb = (htmlTable && 'web' === Platform.OS)
-  const TableComponent = htmlTableAndWeb ?
-    ({children, ...props}) => <table {...props}>{children}</table> :
-    View;
-  const TableBodyComponent = htmlTableAndWeb ?
-    ({children, ...props}) => <tbody {...props}>{children}</tbody> :
-    React.Fragment;
+  const TableComponent = htmlTableAndWeb ?  HtmlTableComponent : View;
+  const TableBodyComponent =
+    htmlTableAndWeb ? HtmlTbodyComponent : React.Fragment;
 
   if (htmlTableAndWeb) {
     if (!tableStyle.width) {

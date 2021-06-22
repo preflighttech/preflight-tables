@@ -4,7 +4,7 @@ import { TitleLabel, TitleArrow, containerStyle } from './Title';
 
 const DraggableTitle = props => {
   const {
-    index, styles, updateOrder, moveColumn, width, columnKey: key
+    index, styles, updateOrder, moveColumn, width, htmlTable, columnKey: key
   } = props;
 
   const ref = useRef(null);
@@ -34,12 +34,21 @@ const DraggableTitle = props => {
 
   drag(drop(ref));
 
-  return (
-    <div ref={ref} style={style} onClick={() => updateOrder(key)}>
-      <TitleLabel {...props} />
-      <TitleArrow {...props} />
-    </div>
-  );
+  if (htmlTable) {
+    return (
+      <th ref={ref} style={style} onClick={() => updateOrder(key)}>
+        <TitleLabel {...props} />
+        <TitleArrow {...props} />
+      </th>
+    );
+  } else {
+    return (
+      <div ref={ref} style={style} onClick={() => updateOrder(key)}>
+        <TitleLabel {...props} />
+        <TitleArrow {...props} />
+      </div>
+    );
+  }
 };
 
 export default DraggableTitle;
