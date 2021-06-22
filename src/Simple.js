@@ -40,8 +40,16 @@ const sorted = ({ entries, order, columns }) => {
     let entryResult = 0;
 
     order.some(({ key, sort }) => {
-      const entryValue = valueFor(entry, key, columns);
-      const otherValue = valueFor(other, key, columns);
+      let entryValue = valueFor(entry, key, columns);
+      let otherValue = valueFor(other, key, columns);
+
+      if ('string' === typeof entryValue) {
+        entryValue = entryValue.toLowerCase();
+      }
+
+      if ('string' === typeof otherValue) {
+        otherValue = otherValue.toLowerCase();
+      }
 
       if (entryValue === otherValue) {
         return false;
