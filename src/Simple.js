@@ -105,7 +105,8 @@ export const Simple = (props) => {
       newOrder = newOrder.slice(0, 1);
     }
 
-    const search = newSearchTerm !== 'undefined' ? newSearchTerm : searchTerm;
+    const search =
+      typeof newSearchTerm !== 'undefined' ? newSearchTerm : searchTerm;
     const filtered = filteredBySearch(data, columns, search);
 
     const maxPage =
