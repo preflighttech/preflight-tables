@@ -168,7 +168,9 @@ export const Gql = (props) => {
         isLoadingComponent={isLoadingComponent}
         refetch={
           false === refetch ? false :
-          () => { setEntries([]); updateEntries({}); }
+          () => {
+            setEntries([]); updateEntries({ newVariables: queryVariables });
+          }
         }
       />
     </>
