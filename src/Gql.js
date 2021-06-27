@@ -105,7 +105,7 @@ export const Gql = (props) => {
     updateEntries({ newVariables: queryVariables });
 
     if (setRefetch) {
-      setRefetch(() => () => updateEntries({}));
+      setRefetch(() => () => updateEntries({ newVariables: queryVariables }));
     }
   }
 
@@ -168,7 +168,9 @@ export const Gql = (props) => {
         isLoadingComponent={isLoadingComponent}
         refetch={
           false === refetch ? false :
-          () => { setEntries([]); updateEntries({}); }
+          () => {
+            setEntries([]); updateEntries({});
+          }
         }
       />
     </>
