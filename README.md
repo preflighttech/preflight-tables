@@ -425,3 +425,7 @@ const MyComponent = () => {
   );
 };
 ```
+
+## License
+
+Licensed under the MIT License.
