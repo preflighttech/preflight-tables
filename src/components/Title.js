@@ -63,7 +63,7 @@ const Title = props => {
 
   if (htmlTable) {
     return (
-      <th ref={ref} style={style} onClick={() => updateOrder(key)}>
+      <th style={style} onClick={() => updateOrder(key)}>
         <TitleLabel {...props} />
         <TitleArrow {...props} />
       </th>
