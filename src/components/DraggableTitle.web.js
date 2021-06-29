@@ -29,12 +29,13 @@ const DraggableTitle = props => {
 
   const style = containerStyle(styles, width);
 
-  style.paddingTop = style.paddingVertical;
-  style.paddingLeft = style.paddingHorizontal;
-
   drag(drop(ref));
 
   if (htmlTable) {
+    style.paddingTop = style.paddingVertical;
+    style.paddingBottom = style.paddingVertical;
+    style.paddingLeft = style.paddingHorizontal;
+
     return (
       <th ref={ref} style={style} onClick={() => updateOrder(key)}>
         <TitleLabel {...props} />

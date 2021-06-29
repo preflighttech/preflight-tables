@@ -62,8 +62,12 @@ const Title = props => {
   const style = containerStyle(styles, width);
 
   if (htmlTable) {
+    style.paddingTop = style.paddingVertical;
+    style.paddingBottom = style.paddingVertical;
+    style.paddingLeft = style.paddingHorizontal;
+
     return (
-      <th ref={ref} style={style} onClick={() => updateOrder(key)}>
+      <th style={style} onClick={() => updateOrder(key)}>
         <TitleLabel {...props} />
         <TitleArrow {...props} />
       </th>
