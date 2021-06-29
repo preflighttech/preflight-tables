@@ -63,13 +63,9 @@ const Title = props => {
 
   if (htmlTable) {
     return (
-      <th>
-        <TouchableWithoutFeedback onPress={() => updateOrder(key)}>
-          <View style={style}>
-            <TitleLabel {...props} />
-            <TitleArrow {...props} />
-          </View>
-        </TouchableWithoutFeedback>
+      <th ref={ref} style={style} onClick={() => updateOrder(key)}>
+        <TitleLabel {...props} />
+        <TitleArrow {...props} />
       </th>
     );
   } else {
