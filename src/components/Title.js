@@ -14,8 +14,8 @@ export const TitleLabel = ({label, styles}) => {
 export const TitleArrow = ({ order, styles, canSort, columnKey: key }) => {
   const sort = order && order.find(item => item?.key === key)?.sort;
 
-  let arrow = '';
-  let arrowColor = 'gray';
+  let arrow = '-';
+  let arrowColor = 'transparent';
 
   if ('asc' === sort) {
     arrow = '↑';
@@ -25,6 +25,7 @@ export const TitleArrow = ({ order, styles, canSort, columnKey: key }) => {
     arrowColor = 'red';
   } else if (canSort) {
     arrow = '↕';
+    arrowColor = 'gray';
   }
 
   const style = {
