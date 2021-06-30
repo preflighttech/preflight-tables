@@ -124,15 +124,26 @@ const Row = ({ entry, columns, index, dimensions, styles, htmlTable }) => {
             let showHiddenButton;
 
             if (hiddenColumns.length && !foundFirst) {
-              showHiddenButton = (
-                <TouchableOpacity onPress={() => setShowHidden(!showHidden)}>
-                  <View style={{paddingHorizontal: 6}}>
-                    <Text style={{fontWeight: 'bold'}}>
-                      {showHidden ? '⊖' : '⊕'}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              );
+              if (htmlTable) {
+                showHiddenButton = (
+                  <span
+                    onClick={() => setShowHidden(!showHidden)}
+                    style={{paddingRight: 6, cursor: 'pointer'}}
+                  >
+                    {showHidden ? '⊖' : '⊕'}
+                  </span>
+                );
+              } else {
+                showHiddenButton = (
+                  <TouchableOpacity onPress={() => setShowHidden(!showHidden)}>
+                    <View style={{paddingHorizontal: 6}}>
+                      <Text style={{fontWeight: 'bold'}}>
+                        {showHidden ? '⊖' : '⊕'}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                );
+              }
             }
 
             cellStyle = {...defaultCellStyle, ...cellStyle};
@@ -179,7 +190,7 @@ const Row = ({ entry, columns, index, dimensions, styles, htmlTable }) => {
           let { content, cellStyle } = options;
           cellStyle = {...hiddenCellStyle, ...cellStyle};
 
-          return (
+          const hiddenColumnsView = (
             <View key={key} style={hiddenStyle}>
               <View style={hiddenLabelStyle}>
                 <Text style={{fontWeight: 'bold'}}>{label}</Text>
@@ -189,6 +200,18 @@ const Row = ({ entry, columns, index, dimensions, styles, htmlTable }) => {
               </View>
             </View>
           );
+
+          if (htmlTable) {
+            return (
+              <tr key={key}>
+                <td colSpan={shownColumns.length}>
+                  {hiddenColumnsView}
+                </td>
+              </tr>
+            );
+          } else {
+            return hiddenColumnsView;
+          }
         })
       }
     </>
