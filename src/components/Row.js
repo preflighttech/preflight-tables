@@ -148,7 +148,7 @@ const Row = ({ entry, columns, index, dimensions, styles, htmlTable }) => {
 
             cellStyle = {...defaultCellStyle, ...cellStyle};
             if (!foundFirst) {
-              delete cellStyle.borderLeftWidth;
+              cellStyle.borderLeftWidth = 0;
 
               // TODO Build a better way to keep showHiddenButton inline.
               cellStyle.flexDirection = 'row';
