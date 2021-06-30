@@ -1,8 +1,11 @@
 {
   "name": "@preflighttech/preflight-tables",
   "description": "DataTables for react",
-  "keywords": ["react", "datatables"],
-  "version": "0.0.27",
+  "keywords": [
+    "react",
+    "datatables"
+  ],
+  "version": "0.0.28",
   "license": "MIT",
   "main": "dist/index.js",
   "publishConfig": {
