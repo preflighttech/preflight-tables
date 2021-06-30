@@ -148,6 +148,7 @@ const Table = props => {
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 5,
+    ...styles?.functionRow,
   }
 
   const showPagination = lengthMenu || pageLength ? true : undefined;

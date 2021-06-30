@@ -260,6 +260,9 @@ DataTable.Simple and DataTable.Gql accept a style prop. Use this to customize st
 
 ```javascript
 const styles = {
+  functionRow: {
+    // styles for functionRow (# of entries, search bar, etc), particularly padding and margin
+  },
   table: {
     // styles for the container, particularly padding and margin
   },
