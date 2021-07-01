@@ -1,0 +1,11 @@
+.title-arrow.sort::after {
+  content: '↕';
+}
+
+.title-arrow.sort-asc::after {
+  content: '↑';
+}
+
+.title-arrow.sort-desc::after {
+  content: '↓';
+}

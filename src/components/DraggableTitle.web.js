@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-import { TitleLabel, TitleArrow, containerStyle } from './Title';
+import { TitleLabel, containerStyle } from './Title';
+import TitleArrow from './TitleArrow';
 
 const DraggableTitle = props => {
   const {
