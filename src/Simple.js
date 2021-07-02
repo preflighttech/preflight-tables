@@ -76,6 +76,7 @@ export const Simple = (props) => {
     data,
     columns,
     lengthMenu,
+    setSettings,
     movableColumns,
     styles,
     component,
@@ -129,6 +130,10 @@ export const Simple = (props) => {
     if (typeof newPage !== 'undefined') { setPage(newPage); }
     if (typeof newPageLength !== 'undefined') { setPageLength(newPageLength); }
     if (typeof newSearchTerm !== 'undefined') { setSearchTerm(newSearchTerm); }
+
+    if (setSettings) {
+      setSettings({search, order: (newOrder || order)});
+    }
   };
 
   if (!order) {

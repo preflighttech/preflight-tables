@@ -103,6 +103,7 @@ htmlTable | No | Set to true to use html table elements when Platform is web.
 disableSearch | No | Set to true to remove search box.
 multiSort | No | Set to true to enable multiple column sorting.
 pageLength | No | Initial page length.
+setSettings | No | Function to call to set settings data, such as sort and search when those change.
 refetch | No | A method to call to refetch data or a custom component to receive and handle refetch requests. Gql tables automatically add this--set to false to disable.
 
 ## Example: Gql Data
@@ -194,7 +195,6 @@ entriesName | No | Key for entries in returned data, if other than "entries".
 queryVariables | No | See "GraphQL queryVariables" section.
 dataUpdated | No | Function to call when data is updated, receives data as argument.
 setRefetch | No | Function to call to set refetch state variable that can be used to update data after a user action.
-setSettings | No | Function to call to set settings data, such as sort and search when those change.
 initialLoadingComponent | No | Component to display during intiial data load.
 isLoadingComponent | No | Component to display next to buttons when data updating.
 
