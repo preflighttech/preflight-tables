@@ -93,6 +93,7 @@ const Row = ({ entry, columns, index, dimensions, styles, htmlTable }) => {
 
   const shownColumns = [];
   const hiddenColumns = [];
+  const cssHover = htmlTable && !styles?.hover;
 
   columns.forEach(options => {
     const { minViewportWidth } = options;
@@ -111,10 +112,16 @@ const Row = ({ entry, columns, index, dimensions, styles, htmlTable }) => {
 
   return (
     <>
+      {cssHover && (
+        <style>
+          {`.preflight-table-row:hover{background-color: #f0f0f0}`}
+        </style>
+      )}
       <RowComponent
+        className="preflight-table-row"
         style={style}
-        onMouseEnter={ () => setHover(true) }
-        onMouseLeave={ () => setHover(false) }
+        onMouseEnter={cssHover ? undefined : () => setHover(true)}
+        onMouseLeave={cssHover ? undefined : () => setHover(false)}
       >
         {
           shownColumns.map(options => {
