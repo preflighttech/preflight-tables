@@ -105,6 +105,7 @@ multiSort | No | Set to true to enable multiple column sorting.
 pageLength | No | Initial page length.
 setSettings | No | Function to call to set settings data, such as sort and search when those change.
 refetch | No | A method to call to refetch data or a custom component to receive and handle refetch requests. Gql tables automatically add this--set to false to disable.
+copyComponent | No | Component for copy to clipboard or true to enable copy with default component.
 
 ## Example: Gql Data
 

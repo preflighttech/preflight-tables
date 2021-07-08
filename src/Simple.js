@@ -85,6 +85,7 @@ export const Simple = (props) => {
     disableSearch,
     multiSort,
     refetch,
+    copyComponent,
     pageLength: initialPageLength,
   } = props;
 
@@ -171,6 +172,7 @@ export const Simple = (props) => {
       disableSearch={disableSearch}
       buttons={buttons}
       refetch={refetch}
+      copyComponent={copyComponent}
     />
   );
 };

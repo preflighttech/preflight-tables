@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Dimensions, View, Text, TouchableOpacity, Platform
 } from 'react-native';
@@ -12,14 +12,6 @@ import { paginatedIndexes, pageCount } from '../functions/pagination';
 import { formattedNumber } from '../functions/util';
 
 import StringInput from './inputs/StringInput';
-
-const HtmlTableComponent = ({children, ...props}) => (
-  <table {...props}>{children}</table>
-);
-
-const HtmlTbodyComponent = ({children, ...props}) => (
-  <tbody {...props}>{children}</tbody>
-);
 
 const Table = props => {
   const {
@@ -42,6 +34,10 @@ const Table = props => {
     refetch,
     isLoadingComponent,
   } = props;
+
+  let copyComponent = props.copyComponent;
+
+  const tableRef = useRef(null);
 
   const currentColumnKeys = columns.map(column => column.key);
 
@@ -106,6 +102,15 @@ const Table = props => {
     formattedNumber(count);
   const numberOfPages = pageCount(count, pageLength);
 
+  const copyToClipboard = () => {
+    const range = document.createRange();
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    range.selectNode(tableRef.current);
+    selection.addRange(range);
+    document.execCommand('copy');
+  };
+
   if (component) {
     const Component = component;
 
@@ -151,6 +156,14 @@ const Table = props => {
     ...styles?.functionRow,
   }
 
+  const HtmlTableComponent = ({children, ...props}) => (
+    <table ref={tableRef} {...props}>{children}</table>
+  );
+
+  const HtmlTbodyComponent = ({children, ...props}) => (
+    <tbody {...props}>{children}</tbody>
+  );
+
   const showPagination = lengthMenu || pageLength ? true : undefined;
 
   const htmlTableAndWeb = (htmlTable && 'web' === Platform.OS)
@@ -166,12 +179,27 @@ const Table = props => {
 
   const refetchComponent = (typeof refetch === 'function') ?
     (
-      <TouchableOpacity onPress={() => refetch()}>
+      <TouchableOpacity onPress={refetch}>
         <View style={{paddingHorizontal: 6}}>
           <Text style={{fontWeight: 'bold'}}>↻</Text>
         </View>
       </TouchableOpacity>
     ) : refetch;
+
+  if (copyComponent) {
+    copyComponent = (
+      <TouchableOpacity onPress={copyToClipboard}>
+        {true === copyComponent ? (
+          <View style={{paddingHorizontal: 6}}>
+            <Text style={{fontWeight: 'bold', fontSize: 20, marginTop: -5}}>
+              ⎘
+            </Text>
+          </View>
+        ) : copyComponent
+        }
+      </TouchableOpacity>
+    )
+  }
 
   return (
     <>
@@ -179,6 +207,7 @@ const Table = props => {
         <View style={{flexDirection: 'row'}}>
           <Text>{formattedNumber(count)} entries</Text>
           {refetchComponent}
+          {htmlTableAndWeb && copyComponent}
         </View>
 
         {

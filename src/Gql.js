@@ -22,6 +22,7 @@ export const Gql = (props) => {
     htmlTable,
     disableSearch,
     refetch,
+    copyComponent,
     initialLoadComponent,
     isLoadingComponent,
     pageLength: initialPageLength,
@@ -166,6 +167,7 @@ export const Gql = (props) => {
         disableSearch={disableSearch}
         isLoading={loading}
         isLoadingComponent={isLoadingComponent}
+        copyComponent={copyComponent}
         refetch={
           false === refetch ? false :
           () => {
