@@ -3,6 +3,7 @@ import { Text } from 'react-native';
 import Table from './components/Table';
 import { paginatedIndexes, pageCount } from './functions/pagination';
 import { valueFor } from './functions/util';
+import { useDefaults } from './Context';
 
 import LengthMenu from './components/LengthMenu';
 import Row from './components/Row';
@@ -71,7 +72,7 @@ const sorted = ({ entries, order, columns }) => {
   });
 };
 
-export const Simple = (props) => {
+export const Simple = props => {
   const {
     data,
     columns,
@@ -87,7 +88,7 @@ export const Simple = (props) => {
     refetch,
     copyComponent,
     pageLength: initialPageLength,
-  } = props;
+  } = useDefaults(props);
 
   const [loadedData, setLoadedData] = useState();
   const [entries, setEntries] = useState({ filtered: [], visible: [] });

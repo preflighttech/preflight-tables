@@ -3,8 +3,9 @@ import { View, Text } from 'react-native';
 import { useLazyQuery } from '@apollo/client';
 import Table from './components/Table';
 import { pageCount } from './functions/pagination';
+import { useDefaults } from './Context';
 
-export const Gql = (props) => {
+export const Gql = props => {
   const {
     query,
     queryName,
@@ -26,7 +27,7 @@ export const Gql = (props) => {
     initialLoadComponent,
     isLoadingComponent,
     pageLength: initialPageLength,
-  } = props;
+  } = useDefaults(props);
 
   const [variables, setVariables] = useState();
   const [entries, setEntries] = useState([]);

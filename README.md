@@ -218,6 +218,23 @@ field :count, Int, null: false
 field :entries, [UnderlyingType], null: false
 ```
 
+## Default Props
+
+You can set default props via a context Provider:
+
+```javascript
+import DataTable from '@preflighttech/preflight-tables';
+
+// ...
+
+<DataTable.Provider
+  htmlTable
+  isLoadingComponent={<Text>...</Text>}
+>
+  {children}
+</DataTable.Provider>
+```
+
 ## Column Definition Options
 
 Name | Required | Notes
