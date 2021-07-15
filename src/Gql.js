@@ -38,6 +38,7 @@ export const Gql = (props) => {
   );
   const [searchTerm, setSearchTerm] = useState();
   const [called, setCalled] = useState(false);
+  const [initialLoadCompleted, setInitialLoadCompleted] = useState(false);
 
   const [getData, { loading, data, error }] = useLazyQuery(query, {
     onCompleted: newData => {
@@ -133,8 +134,10 @@ export const Gql = (props) => {
     }
   }
 
-  if (!data && !count) {
-    return(
+  if (!initialLoadCompleted) {
+    if (data) { setInitialLoadCompleted(true); }
+
+    return (
       <View>
         { initialLoadComponent || <Text>Loading...</Text> }
       </View>
