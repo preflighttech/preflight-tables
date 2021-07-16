@@ -12,6 +12,7 @@ export const Gql = props => {
     entriesName,
     columns,
     lengthMenu,
+    paginationLinks,
     queryVariables,
     dataUpdated,
     setRefetch,
@@ -170,6 +171,7 @@ export const Gql = props => {
         count={count}
         lengthMenu={lengthMenu}
         pageLength={pageLength}
+        paginationLinks={paginationLinks}
         searchTerm={searchTerm}
         movableColumns={movableColumns}
         styles={styles}

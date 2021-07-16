@@ -23,6 +23,7 @@ const Table = props => {
     count,
     lengthMenu,
     pageLength,
+    paginationLinks,
     searchTerm,
     styles,
     movableColumns,
@@ -180,6 +181,12 @@ const Table = props => {
 
   const showPagination = lengthMenu || pageLength ? true : undefined;
 
+  let topPagination = showPagination;
+  let bottomPagination = showPagination;
+
+  if ('top' === paginationLinks) { bottomPagination = false; }
+  if ('bottom' === paginationLinks) { topPagination = false; }
+
   const htmlTableAndWeb = (htmlTable && 'web' === Platform.OS)
   const TableComponent = htmlTableAndWeb ?  HtmlTableComponent : View;
   const TableBodyComponent =
@@ -225,7 +232,7 @@ const Table = props => {
         </View>
 
         {
-          showPagination &&
+          topPagination &&
             <Pagination
               page={page}
               numberOfPages={numberOfPages}
@@ -310,7 +317,7 @@ const Table = props => {
       </TableComponent>
 
       {
-        showPagination &&
+        bottomPagination &&
           <Pagination
             page={page}
             numberOfPages={numberOfPages}

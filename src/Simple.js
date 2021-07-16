@@ -77,6 +77,7 @@ export const Simple = props => {
     data,
     columns,
     lengthMenu,
+    paginationLinks,
     setSettings,
     movableColumns,
     styles,
@@ -161,6 +162,7 @@ export const Simple = props => {
       count={entries.filtered.length}
       lengthMenu={lengthMenu}
       pageLength={pageLength}
+      paginationLinks={paginationLinks}
       searchTerm={searchTerm}
       movableColumns={movableColumns}
       styles={styles}

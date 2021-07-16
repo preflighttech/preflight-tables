@@ -103,6 +103,7 @@ htmlTable | No | Set to true to use html table elements when Platform is web.
 disableSearch | No | Set to true to remove search box.
 multiSort | No | Set to true to enable multiple column sorting. For htmlTables, additional columns are selected by shift-clicking. For non-htmlTables, columns are selected with unmodified click and must be unselected to remove from sort.
 pageLength | No | Initial page length.
+paginationLinks | No | Set to "top" or "bottom" to only display pagination Links on top or bottom of table. Note: If pageLength is 'All' and and lengthMenu is false, no pagination Links are displayed.
 setSettings | No | Function to call to set settings data, such as sort and search when those change.
 refetch | No | A method to call to refetch data or a custom component to receive and handle refetch requests. Gql tables automatically add this--set to false to disable.
 copyComponent | No | Component for copy to clipboard or true to enable copy with default component.
