@@ -31,6 +31,7 @@ const Table = props => {
     isLoading,
     htmlTable,
     disableSearch,
+    multiSort,
     refetch,
     isLoadingComponent,
   } = props;
@@ -61,24 +62,37 @@ const Table = props => {
     setColumnOrder([...currentColumnKeys]);
   }
 
-  const updateOrder = key => {
+  /**
+   * @param {string} key - Column key.
+   * @param {boolean} append - True to append to order.
+   */
+  const updateOrder = (key, append) => {
     if ('prevent' === columns.find(column => column.key === key).sort) {
       return false;
     }
 
-    const oldSort = order.find(orderData => orderData?.key === key)?.sort
-    let newSort = 'asc';
+    const oldDirection =
+      order.find(orderData => orderData?.key === key)?.direction;
 
-    if ('asc' === oldSort) {
-      newSort = 'desc';
-    } else if ('desc' === oldSort) {
-      newSort = false;
-    }
+    let newOrder;
 
-    const newOrder = order.filter(orderData => orderData?.key !== key );
-
-    if (newSort) {
-      newOrder.unshift({ key, sort: newSort });
+    if (multiSort && append) {
+      if ('asc' === oldDirection) {
+        newOrder = [...order];
+        newOrder.find(orderData => orderData?.key === key).direction = 'desc';
+      } else if ('desc' === oldDirection) {
+        newOrder = order.filter(orderData => orderData?.key !== key);
+      } else {
+        newOrder = [...order, { key, direction: 'asc' }];
+      }
+    } else {
+      if ('asc' === oldDirection) {
+        newOrder = [{ key, direction: 'desc' }];
+      } else if ('desc' === oldDirection) {
+        newOrder = [];
+      } else {
+        newOrder = [{ key, direction: 'asc' }];
+      }
     }
 
     updateEntries({ newOrder });

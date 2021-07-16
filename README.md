@@ -101,7 +101,7 @@ component | No | See "Custom UI Component" section.
 buttons | No | Components to put above table, such as filtering buttons.
 htmlTable | No | Set to true to use html table elements when Platform is web.
 disableSearch | No | Set to true to remove search box.
-multiSort | No | Set to true to enable multiple column sorting.
+multiSort | No | Set to true to enable multiple column sorting. For htmlTables, additional columns are selected by shift-clicking. For non-htmlTables, columns are selected with unmodified click and must be unselected to remove from sort.
 pageLength | No | Initial page length.
 setSettings | No | Function to call to set settings data, such as sort and search when those change.
 refetch | No | A method to call to refetch data or a custom component to receive and handle refetch requests. Gql tables automatically add this--set to false to disable.
@@ -110,7 +110,8 @@ copyComponent | No | Component for copy to clipboard or true to enable copy with
 ## Example: Gql Data
 
 Gql gets data from a GraphQL endpoint, using apollo. Pagination, ordering and
-searching are handled on the backend.
+searching are handled on the backend. This example assumes multiSort is
+disabled.
 
 ```javascript
 import React from 'react';
@@ -169,9 +170,17 @@ const Orders = () => {
 export default Orders;
 ```
 
+If mutliSort is enabled, remove sort and sortDirection arguments and add order
+argument:
+
+```javascript
+    $order: [PreflightTablesInputType!]
+```
+
 ## GraphQL queryVariables
 
-You can send additional variables to the GraphQL query, for example, to enable filtering by columns.
+You can send additional variables to the GraphQL query, for example, to enable
+filtering by columns.
 
 Use the queryVariables prop to DataTable.gql. For example:
 
@@ -201,7 +210,8 @@ isLoadingComponent | No | Component to display next to buttons when data updatin
 
 ## Backend Setup for GraphQL Data
 
-The query type should accept at least the following arguments:
+The query type should accept at least the following arguments (assumes multiSort
+is disabled):
 
 ```ruby
 argument :limit, Int, required: false
@@ -211,7 +221,24 @@ argument :sort, String, required: false
 argument :sort_direction, String, required: false
 ```
 
-and include fields like:
+If multiSort is enabled, add an input with key and direction arguments:
+
+```ruby
+module Inputs
+  class PreflightTablesOrderInput < Types::BaseInputObject
+    argument :key, String, required: true
+    argument :direction, String, required: true
+  end
+end
+```
+
+And replace sort and sort_direction arguments with:
+
+```ruby
+argument :order, [PreflightTablesOrderInput], required: false
+```
+
+Include fields like:
 
 ```ruby
 field :count, Int, null: false

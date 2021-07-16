@@ -22,6 +22,7 @@ export const Gql = props => {
     buttons,
     htmlTable,
     disableSearch,
+    multiSort,
     refetch,
     copyComponent,
     initialLoadComponent,
@@ -50,39 +51,46 @@ export const Gql = props => {
   });
 
   const updateEntries = options => {
-    const {
-      newOrder, newPage, newPageLength, newSearchTerm, newVariables
-    } = options;
+    const { newPage, newPageLength, newSearchTerm, newVariables } = options;
+    let { newOrder } = options;
 
-    let limit = newPageLength === undefined ? pageLength : newPageLength;
+    let limit = undefined === newPageLength ? pageLength : newPageLength;
     if (0 === limit) { limit = null; }
 
-    const offset = (newPage === undefined ? page : newPage) * limit;
+    const offset = (undefined === newPage ? page : newPage) * limit;
 
-    let sort = order[0] ? order[0].key : undefined;
-    let sortDirection = order[0] ? order[0].sort : undefined;
+    const search = undefined === newSearchTerm ? searchTerm : newSearchTerm;
 
-    if (newOrder) {
-       sort = newOrder[0] ? newOrder[0].key : undefined;
-       sortDirection = newOrder[0] ? newOrder[0].sort : undefined;
+    const tableVariables = { limit, offset, search };
+
+    if (multiSort) {
+      tableVariables.order = undefined === newOrder ? order : newOrder;
+    } else {
+      if (newOrder) {
+        tableVariables.sort = newOrder[0] ? newOrder[0].key : undefined;
+        tableVariables.sortDirection =
+          newOrder[0] ? newOrder[0].direction : undefined;
+      } else {
+        tableVariables.sort = order[0] ? order[0].key : undefined;
+        tableVariables.sortDirection =
+          order[0] ? order[0].direction : undefined;
+      }
     }
-
-    const search = newSearchTerm !== 'undefined' ? newSearchTerm : searchTerm;
 
     getData(
       {
         variables: {
-          limit, offset, sort, sortDirection, search,
+          ...tableVariables,
           ...(newVariables || variables || {})
         }
       }
     );
 
-    if (typeof newVariables !== 'undefined') { setVariables(newVariables) };
-    if (typeof newOrder !== 'undefined') { setOrder([newOrder[0]]); }
-    if (typeof newPage !== 'undefined') { setPage(newPage); }
-    if (typeof newPageLength !== 'undefined') { setPageLength(newPageLength); }
-    if (typeof newSearchTerm !== 'undefined') { setSearchTerm(newSearchTerm); }
+    if (undefined !== newVariables) { setVariables(newVariables) };
+    if (undefined !== newOrder) { setOrder(newOrder); }
+    if (undefined !== newPage) { setPage(newPage); }
+    if (undefined !== newPageLength) { setPageLength(newPageLength); }
+    if (undefined !== newSearchTerm) { setSearchTerm(newSearchTerm); }
 
     if (setSettings) {
       setSettings({search, order: (newOrder || order)});
@@ -93,9 +101,9 @@ export const Gql = props => {
     const newOrder = [];
     columns.forEach(column => {
       if ('asc' === column.sort) {
-        newOrder.push({ key: column.key, sort: 'asc' });
+        newOrder.push({ key: column.key, direction: 'asc' });
       } else if ('desc' === column.sort) {
-        newOrder.push({ key: column.key, sort: 'desc' });
+        newOrder.push({ key: column.key, direction: 'desc' });
       }
     });
 
@@ -169,6 +177,7 @@ export const Gql = props => {
         buttons={buttons}
         htmlTable={htmlTable}
         disableSearch={disableSearch}
+        multiSort={multiSort}
         isLoading={loading}
         isLoadingComponent={isLoadingComponent}
         copyComponent={copyComponent}

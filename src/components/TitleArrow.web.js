@@ -3,17 +3,17 @@ import { Text, View } from 'react-native';
 import './TitleArrow.css';
 
 const TitleArrow = ({ order, styles, canSort, columnKey: key }) => {
-  const sort = order && order.find(item => item?.key === key)?.sort;
+  const direction = order && order.find(item => item?.key === key)?.direction;
 
   let arrow = '-';
   let arrowColor = 'transparent';
   let className = 'title-arrow';
 
-  if ('asc' === sort) {
+  if ('asc' === direction) {
     arrow = '↑';
     arrowColor = 'green';
     className = 'title-arrow sort-asc';
-  } else if ('desc' === sort) {
+  } else if ('desc' === direction) {
     arrow = '↓';
     arrowColor = 'red';
     className = 'title-arrow sort-desc';

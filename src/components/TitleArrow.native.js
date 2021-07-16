@@ -2,15 +2,15 @@ import React from 'react';
 import { Text, View } from 'react-native';
 
 const TitleArrow = ({ order, styles, canSort, columnKey: key }) => {
-  const sort = order && order.find(item => item?.key === key)?.sort;
+  const direction = order && order.find(item => item?.key === key)?.direction;
 
   let arrow = '-';
   let arrowColor = 'transparent';
 
-  if ('asc' === sort) {
+  if ('asc' === direction) {
     arrow = '↑';
     arrowColor = 'green';
-  } else if ('desc' === sort) {
+  } else if ('desc' === direction) {
     arrow = '↓';
     arrowColor = 'red';
   } else if (canSort) {

@@ -38,7 +38,7 @@ const DraggableTitle = props => {
     style.paddingLeft = style.paddingHorizontal;
 
     return (
-      <th ref={ref} style={style} onClick={() => updateOrder(key)}>
+      <th ref={ref} style={style} onClick={e => updateOrder(key, e.shiftKey)}>
         <TitleLabel {...props} />
         <TitleArrow {...props} />
       </th>

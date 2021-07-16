@@ -40,7 +40,7 @@ const sorted = ({ entries, order, columns }) => {
   return [...entries].sort((entry, other) => {
     let entryResult = 0;
 
-    order.some(({ key, sort }) => {
+    order.some(({ key, direction }) => {
       let entryValue = valueFor(entry, key, columns);
       let otherValue = valueFor(other, key, columns);
 
@@ -63,7 +63,7 @@ const sorted = ({ entries, order, columns }) => {
           result = 1;
         }
 
-        entryResult = 'asc' === sort ? result : (result * -1);
+        entryResult = 'asc' === direction ? result : (result * -1);
         return true;
       }
     });
@@ -104,10 +104,6 @@ export const Simple = props => {
   const updateEntries = options => {
     let { newOrder, newPage, newPageLength, newSearchTerm } = options;
 
-    if (!multiSort && typeof newOrder !== 'undefined') {
-      newOrder = newOrder.slice(0, 1);
-    }
-
     const search =
       typeof newSearchTerm !== 'undefined' ? newSearchTerm : searchTerm;
     const filtered = filteredBySearch(data, columns, search);
@@ -142,9 +138,9 @@ export const Simple = props => {
     const newOrder = [];
     columns.forEach(column => {
       if ('asc' === column.sort) {
-        newOrder.push({ key: column.key, sort: 'asc' });
+        newOrder.push({ key: column.key, direction: 'asc' });
       } else if ('desc' === column.sort) {
-        newOrder.push({ key: column.key, sort: 'desc' });
+        newOrder.push({ key: column.key, direction: 'desc' });
       }
     });
 
@@ -171,6 +167,7 @@ export const Simple = props => {
       component={component}
       htmlTable={htmlTable}
       disableSearch={disableSearch}
+      multiSort={multiSort}
       buttons={buttons}
       refetch={refetch}
       copyComponent={copyComponent}

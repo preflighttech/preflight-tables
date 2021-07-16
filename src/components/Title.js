@@ -41,7 +41,7 @@ const Title = props => {
     style.paddingLeft = style.paddingHorizontal;
 
     return (
-      <th style={style} onClick={() => updateOrder(key)}>
+      <th style={style} onClick={e => updateOrder(key, e.shiftKey)}>
         <TitleLabel {...props} />
         <TitleArrow {...props} />
       </th>
