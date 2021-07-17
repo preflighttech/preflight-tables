@@ -28,24 +28,24 @@ const DraggableTitle = props => {
     }),
   });
 
-  const style = containerStyle(styles, width);
-
   drag(drop(ref));
 
-  if (htmlTable) {
-    style.paddingTop = style.paddingVertical;
-    style.paddingBottom = style.paddingVertical;
-    style.paddingLeft = style.paddingHorizontal;
+  const style = containerStyle(styles, width);
 
+  const updateOrderWeb = (key, e) => {
+    updateOrder(key, e.shiftKey || e.metaKey);
+  };
+
+  if (htmlTable) {
     return (
-      <th ref={ref} style={style} onClick={e => updateOrder(key, e.shiftKey)}>
+      <th ref={ref} style={style} onClick={e => updateOrderWeb(key, e)}>
         <TitleLabel {...props} />
         <TitleArrow {...props} />
       </th>
     );
   } else {
     return (
-      <div ref={ref} style={style} onClick={() => updateOrder(key, e.shiftKey)}>
+      <div ref={ref} style={style} onClick={() => updateOrderWeb(key, e)}>
         <TitleLabel {...props} />
         <TitleArrow {...props} />
       </div>

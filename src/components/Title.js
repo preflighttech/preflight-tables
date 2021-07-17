@@ -29,6 +29,12 @@ export const containerStyle = (styles, width) => {
     style.flexBasis = width;
   }
 
+  if ('web' === Platform.OS) {
+    style.paddingTop = style.paddingVertical;
+    style.paddingBottom = style.paddingVertical;
+    style.paddingLeft = style.paddingHorizontal;
+  }
+
   return style;
 };
 
@@ -37,20 +43,20 @@ const Title = props => {
 
   const style = containerStyle(styles, width);
 
-  if (htmlTable) {
-    style.paddingTop = style.paddingVertical;
-    style.paddingBottom = style.paddingVertical;
-    style.paddingLeft = style.paddingHorizontal;
+  const updateOrderWeb = (key, e) => {
+    updateOrder(key, e.shiftKey || e.metaKey);
+  };
 
+  if (htmlTable) {
     return (
-      <th style={style} onClick={e => updateOrder(key, e.shiftKey)}>
+      <th style={style} onClick={e => updateOrderWeb(key, e)}>
         <TitleLabel {...props} />
         <TitleArrow {...props} />
       </th>
     );
   } else if ('web' === Platform.OS) {
     return (
-      <div style={style} onClick={e => updateOrder(key, e.shiftKey)}>
+      <div style={style} onClick={e => updateOrderWeb(key, e)}>
         <TitleLabel {...props} />
         <TitleArrow {...props} />
       </div>
