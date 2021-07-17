@@ -14,7 +14,6 @@ export const useDefaults = props => {
   if ('undefined' === typeof context) {
     return props;
   } else {
-    console.log(context.defaultProps);
     return { ...context.defaultProps, ...props };
   }
 };

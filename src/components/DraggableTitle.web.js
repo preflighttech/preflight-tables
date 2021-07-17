@@ -45,7 +45,7 @@ const DraggableTitle = props => {
     );
   } else {
     return (
-      <div ref={ref} style={style} onClick={() => updateOrder(key)}>
+      <div ref={ref} style={style} onClick={() => updateOrder(key, e.shiftKey)}>
         <TitleLabel {...props} />
         <TitleArrow {...props} />
       </div>

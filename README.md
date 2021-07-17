@@ -101,7 +101,7 @@ component | No | See "Custom UI Component" section.
 buttons | No | Components to put above table, such as filtering buttons.
 htmlTable | No | Set to true to use html table elements when Platform is web.
 disableSearch | No | Set to true to remove search box.
-multiSort | No | Set to true to enable multiple column sorting. For htmlTables, additional columns are selected by shift-clicking. For non-htmlTables, columns are selected with unmodified click and must be unselected to remove from sort.
+multiSort | No | Set to true to enable multiple column sorting. For web, additional columns are selected by shift-clicking. For native, columns are selected with unmodified click and must be unselected to remove from sort.
 pageLength | No | Initial page length.
 paginationLinks | No | Set to "top" or "bottom" to only display pagination Links on top or bottom of table. Note: If pageLength is 'All' and and lengthMenu is false, no pagination Links are displayed.
 setSettings | No | Function to call to set settings data, such as sort and search when those change.

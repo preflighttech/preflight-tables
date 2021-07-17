@@ -1,5 +1,7 @@
 import React from 'react';
-import { Text, TouchableWithoutFeedback, View } from 'react-native';
+import {
+  Text, TouchableWithoutFeedback, View, Platform
+} from 'react-native';
 import TitleArrow from './TitleArrow';
 
 export const TitleLabel = ({label, styles}) => {
@@ -46,9 +48,16 @@ const Title = props => {
         <TitleArrow {...props} />
       </th>
     );
+  } else if ('web' === Platform.OS) {
+    return (
+      <div style={style} onClick={e => updateOrder(key, e.shiftKey)}>
+        <TitleLabel {...props} />
+        <TitleArrow {...props} />
+      </div>
+    );
   } else {
     return (
-      <TouchableWithoutFeedback onPress={() => updateOrder(key)}>
+      <TouchableWithoutFeedback onPress={() => updateOrder(key, true)}>
         <View style={style}>
           <TitleLabel {...props} />
           <TitleArrow {...props} />
