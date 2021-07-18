@@ -25,14 +25,7 @@
     </DndProvider>
     ```
 
-4. Add github packages auth token to .npmrc.
-
-   ```
-   @preflighttech:registry=https://npm.pkg.github.com/
-   //npm.pkg.github.com/:_authToken=519261ec59f88e4fa03e87a39e70105902b1b6aa
-   ```
-
-5. Install package.
+4. Install package.
 
    ```
    yarn add @preflighttech/preflight-tables
