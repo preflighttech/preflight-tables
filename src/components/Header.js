@@ -27,7 +27,7 @@ const Header = props => {
     .filter((options) => !options.hidden)
     .map((options, index) => {
 
-    const { label, key, minViewportWidth, sort, width } = options;
+    const { label, key, minViewportWidth, sort, width, headerStyle } = options;
 
     if ((dimensions?.width || 999999999) < (minViewportWidth || 0)) {
       return null;
@@ -46,6 +46,7 @@ const Header = props => {
         styles={styles}
         width={width}
         htmlTable={htmlTable}
+        headerStyle={headerStyle}
       />
     );
   });

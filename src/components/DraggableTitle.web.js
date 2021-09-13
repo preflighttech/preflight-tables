@@ -5,7 +5,8 @@ import TitleArrow from './TitleArrow';
 
 const DraggableTitle = props => {
   const {
-    index, styles, updateOrder, moveColumn, width, htmlTable, columnKey: key
+    index, styles, updateOrder, moveColumn, width, htmlTable, headerStyle,
+    columnKey: key
   } = props;
 
   const ref = useRef(null);
@@ -30,7 +31,7 @@ const DraggableTitle = props => {
 
   drag(drop(ref));
 
-  const style = containerStyle(styles, width);
+  const style = containerStyle(styles, width, headerStyle);
 
   const updateOrderWeb = (key, e) => {
     updateOrder(key, e.shiftKey || e.metaKey);

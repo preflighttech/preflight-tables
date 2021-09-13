@@ -270,6 +270,8 @@ minViewportWidth | No | If viewport width is below this amount, hide column (a p
 search | No | Set to false to exclude content from search in Simple table (has no effect in Gql)
 value | No | Function to set value to something different that object[key], particularly for searching and sorting in Simple tables.
 hidden | No | Set to true to not display column.
+cellStyle | No | object with custom cell styles.
+headerStyle | No | object with custom header styles.
 
 Sample column definition with all options:
 

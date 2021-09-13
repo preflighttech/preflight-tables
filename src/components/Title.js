@@ -14,7 +14,7 @@ export const TitleLabel = ({label, styles}) => {
   return <Text style={style}>{label}</Text>;
 };
 
-export const containerStyle = (styles, width) => {
+export const containerStyle = (styles, width, headerStyle) => {
   const style = {
     flex: 1,
     flexDirection: 'row',
@@ -35,13 +35,15 @@ export const containerStyle = (styles, width) => {
     style.paddingLeft = style.paddingHorizontal;
   }
 
-  return style;
+  return {...style, ...headerStyle};
 };
 
 const Title = props => {
-  const { styles, updateOrder, width, htmlTable, columnKey: key } = props;
+  const {
+    styles, updateOrder, width, htmlTable, headerStyle, columnKey: key
+  } = props;
 
-  const style = containerStyle(styles, width);
+  const style = containerStyle(styles, width, headerStyle);
 
   const updateOrderWeb = (key, e) => {
     updateOrder(key, e.shiftKey || e.metaKey);
