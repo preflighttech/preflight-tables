@@ -85,6 +85,7 @@ export const Simple = props => {
     buttons,
     htmlTable,
     disableSearch,
+    alwaysSort,
     multiSort,
     refetch,
     copyComponent,
@@ -169,6 +170,7 @@ export const Simple = props => {
       component={component}
       htmlTable={htmlTable}
       disableSearch={disableSearch}
+      alwaysSort={alwaysSort}
       multiSort={multiSort}
       buttons={buttons}
       refetch={refetch}

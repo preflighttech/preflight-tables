@@ -23,6 +23,7 @@ export const Gql = props => {
     buttons,
     htmlTable,
     disableSearch,
+    alwaysSort,
     multiSort,
     refetch,
     copyComponent,
@@ -179,6 +180,7 @@ export const Gql = props => {
         buttons={buttons}
         htmlTable={htmlTable}
         disableSearch={disableSearch}
+        alwaysSort={alwaysSort}
         multiSort={multiSort}
         isLoading={loading}
         isLoadingComponent={isLoadingComponent}

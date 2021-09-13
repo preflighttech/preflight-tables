@@ -32,6 +32,7 @@ const Table = props => {
     isLoading,
     htmlTable,
     disableSearch,
+    alwaysSort,
     multiSort,
     refetch,
     isLoadingComponent,
@@ -94,6 +95,10 @@ const Table = props => {
       } else {
         newOrder = [{ key, direction: 'asc' }];
       }
+    }
+
+    if (0 === newOrder.length && alwaysSort) {
+      newOrder = [{ key, direction: 'asc' }];
     }
 
     updateEntries({ newOrder });
