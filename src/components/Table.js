@@ -28,6 +28,7 @@ const Table = props => {
     styles,
     movableColumns,
     component,
+    componentProps,
     buttons,
     isLoading,
     htmlTable,
@@ -153,6 +154,8 @@ const Table = props => {
         numberOfPages={numberOfPages}
         paginationData={paginationData}
         isLoading={isLoading}
+        buttons={buttons}
+        {...componentProps}
       />
     );
   }
