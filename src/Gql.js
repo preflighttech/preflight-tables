@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import { useLazyQuery } from '@apollo/client';
 import Table from './components/Table';
@@ -116,11 +116,11 @@ export const Gql = props => {
   if (!called && !data && order) {
     setCalled(true);
     updateEntries({ newVariables: queryVariables });
-
-    if (setRefetch) {
-      setRefetch(() => () => updateEntries({ newVariables: queryVariables }));
-    }
   }
+
+  useEffect(() => {
+    setRefetch(() => () => updateEntries({ newVariables: queryVariables }));
+  }, []);
 
   if (data && JSON.stringify(queryVariables) !== JSON.stringify(variables)) {
     updateEntries({ newVariables: queryVariables });
