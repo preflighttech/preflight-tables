@@ -13,6 +13,13 @@ import { formattedNumber } from '../functions/util';
 
 import StringInput from './inputs/StringInput';
 
+import styled from 'styled-components';
+const HtmlTableComponent = styled.table`
+`;
+
+const HtmlTbodyComponent = styled.tbody`
+`;
+
 const Table = props => {
   const {
     entries,
@@ -178,14 +185,6 @@ const Table = props => {
     paddingHorizontal: 5,
     ...styles?.functionRow,
   }
-
-  const HtmlTableComponent = ({children, ...props}) => (
-    <table ref={tableRef} {...props}>{children}</table>
-  );
-
-  const HtmlTbodyComponent = ({children, ...props}) => (
-    <tbody {...props}>{children}</tbody>
-  );
 
   const showPagination = lengthMenu || pageLength ? true : undefined;
 

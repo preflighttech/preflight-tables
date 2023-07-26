@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { Text, TouchableOpacity, View, Platform } from 'react-native';
 
+import styled from 'styled-components';
+const HtmlRowComponent = styled.tr`
+`;
+
 const renderContent = ({ entry, options, styles }) => {
   let { content, value: getValue } = options;
 
@@ -107,8 +111,7 @@ const Row = ({ entry, columns, index, dimensions, styles, htmlTable }) => {
     }
   });
 
-  const RowComponent = htmlTable ?
-    ({children, ...props}) => <tr {...props}>{children}</tr> : View;
+  const RowComponent = htmlTable ? HtmlRowComponent : View;
 
   return (
     <>
