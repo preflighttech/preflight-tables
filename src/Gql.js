@@ -45,6 +45,7 @@ export const Gql = props => {
   const [initialLoadCompleted, setInitialLoadCompleted] = useState(false);
 
   const [getData, { loading, data, error }] = useLazyQuery(query, {
+    fetchPolicy: 'network-only',
     onCompleted: newData => {
       if (dataUpdated) {
         dataUpdated(newData);
