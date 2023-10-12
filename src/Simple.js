@@ -87,6 +87,7 @@ export const Simple = props => {
     disableSearch,
     alwaysSort,
     multiSort,
+    sortOnOrderChangeOnly,
     sortOnArrowClickOnly,
     refetch,
     copyComponent,
@@ -118,13 +119,37 @@ export const Simple = props => {
       newPage = maxPage;
     }
 
+    let sortedEntries = [];
+
+    if (newOrder || !sortOnOrderChangeOnly || 0 === entries.filtered.length) {
+      sortedEntries =
+        sorted({ columns, entries: filtered, order: (newOrder || order) });
+    } else {
+      const indexes = {};
+      entries.filtered.forEach((oldEntry, index) => {
+        indexes[oldEntry.id] = index + 1;
+      });
+
+      sortedEntries = [...filtered].sort((a, b) => {
+        if (indexes[a.id] && indexes[b.id]) {
+          return indexes[a.id] - indexes[b.id];
+        } else if (indexes[a.id]) {
+          return -1;
+        } else if (indexes[b.id]) {
+          return 1;
+        } else {
+          return -1;
+        }
+      });
+    }
+
     const visible = paginated(
-      sorted({ columns, entries: filtered, order: (newOrder || order) }),
+      sortedEntries,
       (newPage === undefined ? page : newPage),
       (newPageLength  === undefined ? pageLength : newPageLength)
     );
 
-    setEntries({ filtered, visible });
+    setEntries({ filtered: sortedEntries, visible });
 
     if (data != loadedData) { setLoadedData(data); }
     if (typeof newOrder !== 'undefined') { setOrder(newOrder); }
