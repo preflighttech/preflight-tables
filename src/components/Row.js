@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Text, TouchableOpacity, View, Platform } from 'react-native';
 
 import styled from 'styled-components';
+import isEqual from 'react-fast-compare';
+
 const HtmlRowComponent = styled.tr`
 `;
 
@@ -228,4 +230,16 @@ const Row = ({ entry, columns, index, dimensions, styles, htmlTable }) => {
   );
 };
 
-export default Row;
+const rowPropsAreEqual = (prevProps, nextProps) => {
+  return (
+    isEqual(prevProps.entry, nextProps.entry) &&
+    isEqual(prevProps.dimensions, nextProps.dimensions) &&
+    isEqual(prevProps.index, nextProps.index) &&
+    isEqual(prevProps.styles, nextProps.styles) &&
+    isEqual(
+      prevProps.columns.map(c => c.key), nextProps.columns.map(c => c.key)
+    )
+  );
+};
+
+export default React.memo(Row, rowPropsAreEqual);
