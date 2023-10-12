@@ -25,6 +25,7 @@ export const Gql = props => {
     disableSearch,
     alwaysSort,
     multiSort,
+    sortOnArrowClickOnly,
     refetch,
     copyComponent,
     initialLoadComponent,
@@ -183,6 +184,7 @@ export const Gql = props => {
         disableSearch={disableSearch}
         alwaysSort={alwaysSort}
         multiSort={multiSort}
+        sortOnArrowClickOnly={sortOnArrowClickOnly}
         isLoading={loading}
         isLoadingComponent={isLoadingComponent}
         copyComponent={copyComponent}

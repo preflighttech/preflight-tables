@@ -42,6 +42,7 @@ const Table = props => {
     disableSearch,
     alwaysSort,
     multiSort,
+    sortOnArrowClickOnly,
     refetch,
     isLoadingComponent,
   } = props;
@@ -160,6 +161,7 @@ const Table = props => {
         page={page}
         numberOfPages={numberOfPages}
         paginationData={paginationData}
+        sortOnArrowClickOnly={sortOnArrowClickOnly}
         isLoading={isLoading}
         buttons={buttons}
         {...componentProps}
@@ -299,6 +301,7 @@ const Table = props => {
           moveColumn={moveColumn}
           order={order}
           updateOrder={updateOrder}
+          sortOnArrowClickOnly={sortOnArrowClickOnly}
           styles={styles?.header}
           htmlTable={htmlTableAndWeb}
         />

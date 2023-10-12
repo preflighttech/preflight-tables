@@ -40,14 +40,23 @@ export const containerStyle = (styles, width, headerStyle) => {
 
 const Title = props => {
   const {
-    styles, updateOrder, width, htmlTable, headerStyle, columnKey: key
+    styles, updateOrder, width, htmlTable, headerStyle, sortOnArrowClickOnly,
+    columnKey: key
   } = props;
 
   const style = containerStyle(styles, width, headerStyle);
 
   const updateOrderWeb = (key, e) => {
-    updateOrder(key, e.shiftKey || e.metaKey);
+    if (!sortOnArrowClickOnly) {
+      updateOrder(key, e.shiftKey || e.metaKey);
+    }
   };
+
+  const updateOrderNative = key => {
+    if (!sortOnArrowClickOnly) {
+      updateOrder(key, true);
+    }
+  }
 
   if (htmlTable) {
     return (
@@ -65,7 +74,7 @@ const Title = props => {
     );
   } else {
     return (
-      <TouchableWithoutFeedback onPress={() => updateOrder(key, true)}>
+      <TouchableWithoutFeedback onPress={() => updateOrderNative(key)}>
         <View style={style}>
           <TitleLabel {...props} />
           <TitleArrow {...props} />

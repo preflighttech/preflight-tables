@@ -2,7 +2,11 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import './TitleArrow.css';
 
-const TitleArrow = ({ order, styles, canSort, columnKey: key }) => {
+const TitleArrow = props => {
+  const {
+    order, styles, canSort, sortOnArrowClickOnly, updateOrder, columnKey: key
+  } = props;
+
   const direction = order && order.find(item => item?.key === key)?.direction;
 
   let arrow = '-';
@@ -32,7 +36,17 @@ const TitleArrow = ({ order, styles, canSort, columnKey: key }) => {
     ...styles?.arrowStyle,
   }
 
-  return <i className={className} style={style}></i>;
+  if (sortOnArrowClickOnly) {
+    return (
+      <i
+        className={className}
+        style={style}
+        onClick={e => updateOrder(key, e.shiftKey || e.metaKey)}
+      ></i>
+    );
+  } else {
+    return <i className={className} style={style}></i>;
+  }
 };
 
 export default TitleArrow;

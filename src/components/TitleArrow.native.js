@@ -1,7 +1,11 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 
-const TitleArrow = ({ order, styles, canSort, columnKey: key }) => {
+const TitleArrow = props => {
+  const {
+    order, styles, canSort, sortOnArrowClickOnly, updateOrder, columnKey: key
+  } = props;
+
   const direction = order && order.find(item => item?.key === key)?.direction;
 
   let arrow = '-';
@@ -26,7 +30,15 @@ const TitleArrow = ({ order, styles, canSort, columnKey: key }) => {
     ...styles?.arrowStyle,
   }
 
-  return <Text style={style}>{arrow}</Text>;
+  if (sortOnArrowClickOnly) {
+    return (
+      <Pressable onPress={() => updateOrder(key, true)}>
+        <Text style={style}>{arrow}</Text>
+      </Pressable>
+    );
+  } else {
+    return <Text style={style}>{arrow}</Text>;
+  }
 };
 
 export default TitleArrow;

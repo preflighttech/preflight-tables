@@ -87,6 +87,7 @@ export const Simple = props => {
     disableSearch,
     alwaysSort,
     multiSort,
+    sortOnArrowClickOnly,
     refetch,
     copyComponent,
     pageLength: initialPageLength,
@@ -172,6 +173,7 @@ export const Simple = props => {
       disableSearch={disableSearch}
       alwaysSort={alwaysSort}
       multiSort={multiSort}
+      sortOnArrowClickOnly={sortOnArrowClickOnly}
       buttons={buttons}
       refetch={refetch}
       copyComponent={copyComponent}

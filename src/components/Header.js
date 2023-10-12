@@ -5,8 +5,8 @@ import Title from './Title';
 
 const Header = props => {
   const {
-    columns, dimensions, movableColumns, moveColumn, order, updateOrder, styles,
-    htmlTable
+    columns, dimensions, movableColumns, moveColumn, order, updateOrder,
+    sortOnArrowClickOnly, styles, htmlTable
   } = props;
 
   const style = {
@@ -45,6 +45,7 @@ const Header = props => {
         updateOrder={updateOrder}
         styles={styles}
         width={width}
+        sortOnArrowClickOnly={sortOnArrowClickOnly}
         htmlTable={htmlTable}
         headerStyle={headerStyle}
       />
