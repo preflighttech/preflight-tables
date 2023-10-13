@@ -91,6 +91,7 @@ export const Simple = props => {
     sortOnArrowClickOnly,
     refetch,
     copyComponent,
+    memoizeRows,
     pageLength: initialPageLength,
   } = useDefaults(props);
 
@@ -202,6 +203,7 @@ export const Simple = props => {
       buttons={buttons}
       refetch={refetch}
       copyComponent={copyComponent}
+      memoizeRows={memoizeRows}
     />
   );
 };

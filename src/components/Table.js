@@ -43,6 +43,7 @@ const Table = props => {
     alwaysSort,
     multiSort,
     sortOnArrowClickOnly,
+    memoizeRows,
     refetch,
     isLoadingComponent,
   } = props;
@@ -318,6 +319,7 @@ const Table = props => {
                   dimensions={dimensions}
                   styles={styles?.data}
                   htmlTable={htmlTableAndWeb}
+                  memoizeRows={memoizeRows}
                 />
               );
             })

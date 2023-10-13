@@ -231,25 +231,29 @@ const Row = ({ entry, columns, index, dimensions, styles, htmlTable }) => {
 };
 
 const rowPropsAreEqual = (prevProps, nextProps) => {
-  const prevColumns = prevProps.columns.map(column => ({
-    key: column.key,
-    label: column.label,
-    hidden: column.hidden,
-  }));
+  if (nextProps.memoizeRows) {
+    const prevColumns = prevProps.columns.map(column => ({
+      key: column.key,
+      label: column.label,
+      hidden: column.hidden,
+    }));
 
-  const nextColumns = nextProps.columns.map(column => ({
-    key: column.key,
-    label: column.label,
-    hidden: column.hidden,
-  }));
+    const nextColumns = nextProps.columns.map(column => ({
+      key: column.key,
+      label: column.label,
+      hidden: column.hidden,
+    }));
 
-  return (
-    isEqual(prevProps.entry, nextProps.entry) &&
-    isEqual(prevProps.dimensions, nextProps.dimensions) &&
-    isEqual(prevProps.index, nextProps.index) &&
-    isEqual(prevProps.styles, nextProps.styles) &&
-    isEqual(prevColumns, nextColumns)
-  );
+    return (
+      isEqual(prevProps.entry, nextProps.entry) &&
+      isEqual(prevProps.dimensions, nextProps.dimensions) &&
+      isEqual(prevProps.index, nextProps.index) &&
+      isEqual(prevProps.styles, nextProps.styles) &&
+      isEqual(prevColumns, nextColumns)
+    );
+  } else {
+    return isEqual(prevProps, nextProps);
+  }
 };
 
 export default React.memo(Row, rowPropsAreEqual);
