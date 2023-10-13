@@ -36,7 +36,7 @@ export const Gql = props => {
   const [variables, setVariables] = useState();
   const [entries, setEntries] = useState([]);
   const [count, setCount] = useState(0);
-  const [order, setOrder] = useState();
+  const [order, setOrder] = useState([]);
   const [page, setPage] = useState(0);
   const [pageLength, setPageLength] = useState(
     'All' === initialPageLength ? 0 : (initialPageLength || 10)
@@ -101,7 +101,7 @@ export const Gql = props => {
     }
   };
 
-  if (!order) {
+  useEffect(() => {
     const newOrder = [];
     columns.forEach(column => {
       if ('asc' === column.sort) {
@@ -111,22 +111,16 @@ export const Gql = props => {
       }
     });
 
-    setOrder(newOrder);
-    if (setSettings) { setSettings({order: newOrder}) }
-  }
+    updateEntries({ newOrder, newVariables: queryVariables });
 
-  if (!called && !data && order) {
-    setCalled(true);
-    updateEntries({ newVariables: queryVariables });
-  }
-
-  useEffect(() => {
     setRefetch(() => () => updateEntries({ newVariables: queryVariables }));
   }, []);
 
-  if (data && JSON.stringify(queryVariables) !== JSON.stringify(variables)) {
-    updateEntries({ newVariables: queryVariables });
-  }
+  useEffect(() => {
+    if (data && JSON.stringify(queryVariables) !== JSON.stringify(variables)) {
+      updateEntries({ newVariables: queryVariables });
+    }
+  }, [queryVariables, variables]);
 
   if (data && data[queryName]) {
     // Save entries and count to state to avoid jumpiness when updateEntries
