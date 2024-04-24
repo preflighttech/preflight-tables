@@ -165,6 +165,12 @@ const Table = props => {
         sortOnArrowClickOnly={sortOnArrowClickOnly}
         isLoading={isLoading}
         buttons={buttons}
+        count={count}
+        disableSearch={disableSearch}
+        sortOnArrowClickOnly={sortOnArrowClickOnly}
+        memoizeRows={memoizeRows}
+        refetch={refetch}
+        isLoadingComponent={isLoadingComponent}
         {...componentProps}
       />
     );
