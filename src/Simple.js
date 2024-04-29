@@ -195,6 +195,7 @@ export const Simple = props => {
       movableColumns={movableColumns}
       styles={styles}
       component={component}
+      componentProps={props.componentProps}
       htmlTable={htmlTable}
       disableSearch={disableSearch}
       alwaysSort={alwaysSort}

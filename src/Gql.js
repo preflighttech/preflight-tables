@@ -173,6 +173,7 @@ export const Gql = props => {
         movableColumns={movableColumns}
         styles={styles}
         component={component}
+        componentProps={props.componentProps}
         buttons={buttons}
         htmlTable={htmlTable}
         disableSearch={disableSearch}
