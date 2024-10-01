@@ -102,6 +102,12 @@ export const Gql = props => {
   };
 
   useEffect(() => {
+    if (setRefetch) {
+      setRefetch(() => () => updateEntries({}));
+    }
+  }, [variables, order, page, pageLength, searchTerm]);
+
+  useEffect(() => {
     const newOrder = [];
     columns.forEach(column => {
       if ('asc' === column.sort) {
@@ -112,8 +118,6 @@ export const Gql = props => {
     });
 
     updateEntries({ newOrder, newVariables: queryVariables });
-
-    setRefetch(() => () => updateEntries({ newVariables: queryVariables }));
   }, []);
 
   useEffect(() => {
